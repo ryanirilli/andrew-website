@@ -9,7 +9,9 @@ const setPosts: Action = posts => ({
 export const getPosts = () => {
   return async dispatch => {
     const req = await fetch("/api/v1/all-posts");
-    const data = await req.json();
-    dispatch(setPosts(data));
+    if (req.ok) {
+			const data = await req.json();
+    	dispatch(setPosts(data));
+    }    
   };
 };
