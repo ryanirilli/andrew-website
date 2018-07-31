@@ -32,8 +32,9 @@ class Home extends React.Component<Props> {
   renderPosts = (post, i) => {
     return (
       <div key={i}>
-        <H1>Quick Brown Fox</H1>
-        <img src={post.urls.regular} alt="post main photo" />
+        <H1>{post.title}</H1>
+        <img src={post.photo.urls.regular} alt="post main photo" />
+        <P>{post.body}</P>
       </div>
     );
   };
