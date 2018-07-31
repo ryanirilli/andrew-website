@@ -1,9 +1,13 @@
-import React, { Component } from "react";
+// @flow
+
+import * as React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Home from "./routes/home/Home";
 
-class App extends Component {
+type Props = {};
+
+class App extends React.Component<Props> {
   render() {
     return (
       <Router>

@@ -1,8 +1,12 @@
+// @flow
+
 import * as React from "react";
 import { H1, H2, H3, H4, P } from "../../styles/typography";
 import { Container } from "../../styles/layouts";
 
-export default class Home extends React.Component {
+type Props = {};
+
+export default class Home extends React.Component<Props> {
   render() {
     return (
       <div>
