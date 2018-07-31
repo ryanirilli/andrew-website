@@ -2,6 +2,11 @@ import styled from "react-emotion";
 import { css } from "emotion";
 import { BASE_SPACING_UNIT, COLORS, MQ } from "../styles/style-config";
 
+/**
+ * Type scale is based on the Major Third
+ * https://type-scale.com/
+ */
+
 const baseHeading = {
   color: COLORS.headings,
   margin: 0

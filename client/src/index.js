@@ -7,10 +7,10 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
-import appReducer from "./reducers/app.reducer";
+import postsReducer from "./reducers/posts.reducer";
 
 export const store = createStore(
-  combineReducers({ app: appReducer }),
+  combineReducers({ posts: postsReducer }),
   applyMiddleware(thunk)
 );
 
