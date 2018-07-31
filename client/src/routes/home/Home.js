@@ -14,7 +14,8 @@ type Props = {
 
 class Home extends React.Component<Props> {
   componentDidMount() {
-    this.props.getPosts();
+    const { posts } = this.props;
+    !posts && this.props.getPosts();
   }
 
   render() {
@@ -30,10 +31,10 @@ class Home extends React.Component<Props> {
 
   renderPosts = (post, i) => {
     return (
-      <React.Fragment>
+      <div key={i}>
         <H1>Quick Brown Fox</H1>
         <img src={post.urls.regular} alt="post main photo" />
-      </React.Fragment>
+      </div>
     );
   };
 }
