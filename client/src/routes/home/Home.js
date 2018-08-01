@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { connect } from "react-redux";
-import { H1, H2, H3, H4, P } from "../../styles/typography";
+
 import { Pad } from "../../styles/spacing";
 import { Container } from "../../styles/layouts";
+import Post from "../../components/Post";
 import { getPosts } from "../../actions/posts.actions";
 
 type Props = {
@@ -30,13 +31,7 @@ class Home extends React.Component<Props> {
   }
 
   renderPosts = (post, i) => {
-    return (
-      <div key={i}>
-        <H1>{post.title}</H1>
-        <img src={post.photo.urls.regular} alt="post main photo" />
-        <P>{post.body}</P>
-      </div>
-    );
+    return <Post key={i} post={post} />;
   };
 }
 

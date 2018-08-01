@@ -51,7 +51,7 @@ export const H4 = styled("h4")(
 
 export const P = styled("p")(props => ({
   margin: 0,
-  fontSize: "1rem",
+  fontSize: "1.3125rem",
   lineHeight: 1.5,
   color: COLORS.text,
   paddingBottom: `${BASE_SPACING_UNIT * 4}px`

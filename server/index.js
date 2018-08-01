@@ -11,8 +11,8 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.get(`${BASE_PATH}/all-posts`, async (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  const posts = await fetchPosts().catch(errorMessage => {
-  	res.status(500).send(errorMessage);
+  const posts = await fetchPosts(true).catch(errorMessage => {
+    res.status(500).send(errorMessage);
   });
   res.send(JSON.stringify(posts));
 });
