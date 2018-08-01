@@ -5,6 +5,8 @@
   "dependencies": {
     "color": "^3.0.0",
     "emotion": "^9.2.6",
+    "idx": "^2.4.0",
+    "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-emotion": "^9.2.6",
@@ -12,7 +14,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "showdown": "^1.8.6"
   },
   "scripts": {
     "start": "react-scripts start",

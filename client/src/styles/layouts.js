@@ -1,9 +1,11 @@
 import * as React from "react";
 import styled from "react-emotion";
-import { MAX_WIDTH as maxWidth } from "./style-config";
+import { css } from "emotion";
+import { MAX_WIDTH as maxWidth, BASE_SPACING_UNIT, MQ } from "./style-config";
 
 export const Container = styled("div")(props => ({
   maxWidth,
+  position: "relative",
   margin: "0 auto"
 }));
 
@@ -28,4 +30,11 @@ export const RatioBoxContent = styled("div")`
   height: 100%;
   width: 100%;
   overflow: ${props => props.overflow || "hidden"};
+  ${props =>
+    MQ.large(
+      css`
+        border-radius: ${_ =>
+          props.rounded ? `${BASE_SPACING_UNIT * 2}px` : 0};
+      `
+    )};
 `;

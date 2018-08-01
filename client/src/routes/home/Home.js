@@ -3,8 +3,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { Pad } from "../../styles/spacing";
-import { Container } from "../../styles/layouts";
 import Post from "../../components/Post";
 import { getPosts } from "../../actions/posts.actions";
 
@@ -22,11 +20,7 @@ class Home extends React.Component<Props> {
   render() {
     const { posts } = this.props;
     return (
-      <React.Fragment>
-        <Container>
-          <Pad>{posts && posts.map(this.renderPosts)}</Pad>
-        </Container>
-      </React.Fragment>
+      <React.Fragment>{posts && posts.map(this.renderPosts)}</React.Fragment>
     );
   }
 
