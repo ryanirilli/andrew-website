@@ -1,13 +1,17 @@
 import * as React from "react";
 import styled from "react-emotion";
 import { css } from "emotion";
-import { MAX_WIDTH as maxWidth, BASE_SPACING_UNIT, MQ } from "./style-config";
+import { MAX_WIDTH, BASE_SPACING_UNIT, MQ } from "./style-config";
 
-export const Container = styled("div")(props => ({
-  maxWidth,
-  position: "relative",
-  margin: "0 auto"
-}));
+export const Container = styled("div")`
+  max-width: ${MAX_WIDTH}px;
+  position: relative;
+  margin: 0 auto;
+`;
+
+const ratioProps = props => css`
+  padding-bottom: calc(${props.consequent / props.antecedent} * 100%);
+`;
 
 export const RatioBox = styled("div")`
   position: relative;
@@ -16,10 +20,17 @@ export const RatioBox = styled("div")`
     content: "";
     display: block;
     width: 100%;
-    padding-bottom: calc(
-      ${props => props.consequent / props.antecedent} * 100%
-    );
+    ${ratioProps};
   }
+`;
+
+const ratioBoxProps = props => css`
+  overflow: ${props.overflow || "hidden"};
+  ${MQ.large(
+    css`
+      border-radius: ${props.rounded ? `${BASE_SPACING_UNIT * 2}px` : 0};
+    `
+  )};
 `;
 
 export const RatioBoxContent = styled("div")`
@@ -29,12 +40,5 @@ export const RatioBoxContent = styled("div")`
   left: 0;
   height: 100%;
   width: 100%;
-  overflow: ${props => props.overflow || "hidden"};
-  ${props =>
-    MQ.large(
-      css`
-        border-radius: ${_ =>
-          props.rounded ? `${BASE_SPACING_UNIT * 2}px` : 0};
-      `
-    )};
+  ${ratioBoxProps};
 `;

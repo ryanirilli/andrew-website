@@ -3,7 +3,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import Post from "../../components/Post";
+import Post from "../../components/Post/Post";
 import { getPosts } from "../../actions/posts.actions";
 
 type Props = {

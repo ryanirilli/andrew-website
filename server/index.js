@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
-const fetchPosts = require("./posts");
+const posts = require("./posts");
 dotenv.config();
 
 const app = express();
@@ -11,10 +11,17 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.get(`${BASE_PATH}/all-posts`, async (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  const posts = await fetchPosts(true).catch(errorMessage => {
-    res.status(500).send(errorMessage);
-  });
-  res.send(JSON.stringify(posts));
+  res.send(JSON.stringify(posts.data));
+});
+
+app.get(`${BASE_PATH}/post/:postId`, async (req, res) => {
+  const { postId } = req.params;
+  res.setHeader("Content-Type", "application/json");
+  const post = posts.data.find(post => post.id === parseInt(postId));
+  if (!post) {
+    return res.status(404).send("post not found");
+  }
+  res.send(JSON.stringify(post));
 });
 
 app.get("*", (req, res) => {

@@ -1,45 +1,52 @@
 import * as React from "react";
+import { css } from "emotion";
 import styled from "react-emotion";
-import { COLORS, BASE_SPACING_UNIT } from "../styles/style-config";
-import { P } from "../styles/typography";
+import { BASE_SPACING_UNIT, MQ } from "../styles/style-config";
+import { COLORS } from "../styles/colors";
 
 type Props = {|
   url: string,
   title: string,
-  tagline: string
+  tagline?: ?string
 |};
 
 const AvatarContainer = styled("div")`
   display: flex;
-  margin-bottom: ${BASE_SPACING_UNIT * 8}px;
+`;
+
+const avatarBg = props => css`
+  background: url(${props.url}) no-repeat;
 `;
 
 const Avatar = styled("div")`
-  overflow: hidden;
-  background: ${props => `url(${props.url}) no-repeat`};
+  ${avatarBg};
   background-size: cover;
-  width: 75px;
-  height: 75px;
   border-radius: 50%;
-  border: 4px solid ${COLORS.white};
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   margin-right: ${BASE_SPACING_UNIT * 4}px;
+  ${MQ.small(css`
+    width: 35px;
+    height: 35px;
+    border: 2px solid ${COLORS.white};
+  `)};
+  ${MQ.medium(css`
+    width: 50px;
+    height: 50px;
+    border: 4px solid ${COLORS.white};
+  `)};
 `;
 
 const AvatarContent = styled("div")`
-  padding-top: ${BASE_SPACING_UNIT * 4}px;
+  ${MQ.medium(
+    css`
+      padding-top: ${BASE_SPACING_UNIT * 2}px;
+    `
+  )};
 `;
 
-export default ({ url, title, tagline }: Props) => (
+export default ({ url, children }: Props) => (
   <AvatarContainer>
     <Avatar url={url} />
-    <AvatarContent>
-      <P small bold flush>
-        {title}
-      </P>
-      <P tiny flush>
-        {tagline}
-      </P>
-    </AvatarContent>
+    <AvatarContent>{children}</AvatarContent>
   </AvatarContainer>
 );

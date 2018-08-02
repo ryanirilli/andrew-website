@@ -2,21 +2,27 @@
 import * as POSTS from "../action-types/posts.action-types";
 
 type AppState = {|
-  +posts: ?Object
+  +posts: ?Array<Object>,
+  +activePost: ?Object
 |};
 
-export type Action = {| type: POSTS.SET_POSTS, posts: string |};
-
 const DEFAULT_STATE: AppState = {
-  posts: null
+  posts: null,
+  activePost: null
 };
 
-export default (state: AppState = DEFAULT_STATE, action: Action) => {
+export default (state: AppState = DEFAULT_STATE, action: Object) => {
   switch (action.type) {
     case POSTS.SET_POSTS: {
       return {
         ...state,
         posts: action.posts
+      };
+    }
+    case POSTS.SET_ACTIVE_POST: {
+      return {
+        ...state,
+        activePost: action.post
       };
     }
     default:
