@@ -3,12 +3,12 @@ const faker = require("faker");
 const axios = require("axios");
 const dotenv = require("dotenv");
 const shuffle = require('lodash.shuffle');
+
 dotenv.config();
+
 const { UNSPLASH_ACCESS_KEY } = process.env;
 const unsplashUrl = `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&count=30&query=tech`;
-let id = 0;
-
-let postPhotoIndex = 0;
+const tags = ['tech', 'artificial intelligence', 'scalable systems', 'data science', 'backend', 'frameworks', 'SOA', 'microservices', 'hot feature'];
 const postPhotos = [
   '![better up chart](https://www.betterup.co/wp-content/themes/betterup-2018/images/results-members-rate-graph2.jpg "chart")',
   '![better up chart](https://www.betterup.co/wp-content/themes/betterup-2018/images/home-iphone-waiting-room@2x.png "phone")',
@@ -16,10 +16,12 @@ const postPhotos = [
   '![better up chart](https://www.betterup.co/wp-content/themes/betterup-2018/images/results-graph2.png "pillars")',
   '![better up chart](https://www.betterup.co/wp-content/themes/betterup-2018/images/results-impact2.jpg "pillars")'
 ];
+shuffle(tags);
 shuffle(postPhotos);
 
+let id = 0;
+let postPhotoIndex = 0;
 let tagIndex = 0;
-const tags = ['tech', 'artificial intelligence', 'scalable systems', 'data science', 'backend', 'frameworks', 'SOA', 'microservices', 'hot feature'];
 
 const getRandomPhoto = () => {
     if (postPhotoIndex === postPhotos.length) {
