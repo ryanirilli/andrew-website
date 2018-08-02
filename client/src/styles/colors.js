@@ -1,8 +1,8 @@
 import { css } from "emotion";
 import Color from "color";
 
-const WHITE_SEMI_TRANSPARENT = "rgba(255, 255, 255, 0.9)";
-
+const PRIMARY_BRAND_COLOR = "#FF4F2C";
+const PRIMARY_WASH = "#f3f4f5";
 const WHITE = "#fff";
 const PRIMARY_TEXT_COLOR = "#444444";
 const SECONDARY_TEXT_COLOR = Color(PRIMARY_TEXT_COLOR)
@@ -10,9 +10,10 @@ const SECONDARY_TEXT_COLOR = Color(PRIMARY_TEXT_COLOR)
   .hex();
 
 export const COLORS = {
+  wash: PRIMARY_WASH,
+  brand: PRIMARY_BRAND_COLOR,
   black: PRIMARY_TEXT_COLOR,
   white: WHITE,
-  whiteSemiTransparent: WHITE_SEMI_TRANSPARENT,
   headings: PRIMARY_TEXT_COLOR,
   text: SECONDARY_TEXT_COLOR
 };

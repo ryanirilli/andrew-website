@@ -5,7 +5,7 @@ import { BASE_SPACING_UNIT, MQ } from "../styles/style-config";
 const pad = props => css`
   ${MQ.small(
     css`
-      padding: ${BASE_SPACING_UNIT * (props.small ? 1 : 2)}px;
+      padding: ${BASE_SPACING_UNIT * (props.small ? 1 : 4)}px;
     `
   )};
   ${MQ.medium(

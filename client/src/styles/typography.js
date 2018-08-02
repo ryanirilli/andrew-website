@@ -8,48 +8,51 @@ import { COLORS } from "../styles/colors";
  * https://type-scale.com/
  */
 
+const headingMarginTopDefault = `${BASE_SPACING_UNIT * 10}px`;
+const headingMarginBottomDefault = `${BASE_SPACING_UNIT * 4}px`;
+
+const headingProps = props => css`
+  margin-top: ${props.flush ? 0 : headingMarginTopDefault};
+  margin-bottom: ${props.flush ? 0 : headingMarginBottomDefault};
+`;
+
 const headingBase = css`
-  margin: 0;
+  line-height: 1.1;
+  margin: ${headingMarginTopDefault} 0 ${headingMarginBottomDefault} 0;
 `;
 
 const h1 = css`
   ${headingBase};
-  line-height: 1;
   ${MQ.small(css({ fontSize: "1.953rem" }))};
   ${MQ.large(css({ fontSize: "2.441rem" }))};
 `;
 
 const h2 = css`
   ${headingBase};
-  line-height: 2;
   ${MQ.small(css({ fontSize: "1.563rem" }))};
   ${MQ.large(css({ fontSize: "1.953rem" }))};
 `;
 
 const h3 = css`
   ${headingBase};
-  line-height: 2.25;
   ${MQ.small(css({ fontSize: "1.25rem" }))};
   ${MQ.large(css({ fontSize: "1.563rem" }))};
 `;
 
 const h4 = css`
   ${headingBase};
-  line-height: 2.375;
   ${MQ.small(css({ fontSize: "1rem" }))};
   ${MQ.large(css({ fontSize: "1.25rem" }))};
 `;
 
 const p = css`
   margin: 0;
-
   line-height: 1.5;
   color: ${COLORS.text};
-
   ${MQ.small(
     css`
       font-size: 1rem;
-      padding-bottom: ${BASE_SPACING_UNIT * 2}px;
+      padding-bottom: ${BASE_SPACING_UNIT * 4}px;
     `
   )};
   ${MQ.medium(
@@ -62,26 +65,31 @@ const p = css`
 
 export const H1 = styled("h1")`
   ${h1};
+  ${headingProps};
 `;
 
 export const H2 = styled("h1")`
   ${h2};
+  ${headingProps};
 `;
 
 export const H3 = styled("h3")`
   ${h3};
+  ${headingProps};
 `;
 
 export const H4 = styled("h3")`
   ${h4};
+  ${headingProps};
 `;
 
-const dynamicP = props => css`
+const pProps = props => css`
   ${MQ.small(
     css`
       font-weight: ${props.bold ? 600 : "normal"};
       font-size: ${props.small ? "1rem" : props.tiny ? "0.8rem" : "1.3125rem"};
       padding-bottom: ${props.flush ? 0 : `${BASE_SPACING_UNIT * 2}px`};
+      line-height: ${props.flush ? 1.25 : 1.5};
     `
   )};
   ${MQ.medium(
@@ -93,7 +101,7 @@ const dynamicP = props => css`
 
 export const P = styled("p")`
   ${p};
-  ${dynamicP};
+  ${pProps};
 `;
 
 injectGlobal`   

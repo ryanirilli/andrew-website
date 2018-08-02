@@ -3,6 +3,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import Post from "../../components/Post/Post";
+import TopNav from "../../components/TopNav";
+
 import { getPost, setActivePost } from "../../actions/posts.actions";
 
 type Props = {
@@ -23,10 +25,12 @@ class PostDetail extends React.Component<Props> {
 
   render() {
     const { post } = this.props;
-    if (!post) {
-      return null;
-    }
-    return <Post post={post} />;
+    return (
+      <React.Fragment>
+        <TopNav />
+        {post && <Post post={post} />}
+      </React.Fragment>
+    );
   }
 }
 

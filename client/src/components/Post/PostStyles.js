@@ -1,8 +1,6 @@
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
-import { COLORS } from "../../styles/colors";
 import styled from "react-emotion";
 import { css } from "emotion";
-import { absolutePosition } from "../../styles/position";
 
 export const PostWrapper = styled("div")(
   MQ.medium(css({ padding: "3rem 7rem 0 7rem" })),
@@ -37,19 +35,20 @@ export const PostBody = styled("div")(
 );
 
 export const PostTitleContainer = styled("div")`
-  ${absolutePosition};
   display: flex;
   ${MQ.small(
     css`
       flex-direction: column;
-      padding-bottom: ${BASE_SPACING_UNIT * 4}px;
-      background: ${COLORS.whiteSemiTransparent};
+      align-items: flex-start;
+      padding: ${BASE_SPACING_UNIT * 4}px ${BASE_SPACING_UNIT * 4}px 0
+        ${BASE_SPACING_UNIT * 4}px;
     `
   )};
   ${MQ.medium(
     css`
       flex-direction: row;
-      background: ${COLORS.white};
+      align-items: center;
+      padding: ${BASE_SPACING_UNIT * 4}px 0;
     `
   )};
 `;
@@ -58,13 +57,15 @@ export const PostTitle = styled("div")`
   flex: 1;
 `;
 
-export const AvatarContainer = styled("div")`
+export const PostAvatarContainer = styled("div")`
   ${MQ.small(
     css`
-      padding-top: 0;
-      padding-left: ${BASE_SPACING_UNIT * 4}px;
+      padding-top: ${BASE_SPACING_UNIT * 4}px;
     `
-  )} ${MQ.medium(css`
-    padding-top: ${BASE_SPACING_UNIT * 4}px;
-  `)};
+  )};
+  ${MQ.medium(
+    css`
+      padding-top: 0;
+    `
+  )};
 `;

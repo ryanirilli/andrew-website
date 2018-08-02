@@ -27,8 +27,10 @@ const createBody = () => {
     5
   )} :smiley:
     ${getRandomPhoto()}
+    
     > Blockquotes are very handy in email to emulate reply text.
-    > This line is part of the same quote.    
+    > This line is part of the same quote. 
+       
     ## ${faker.company.catchPhrase()}
     ${faker.lorem.sentences(3)}
     ${getRandomPhoto()}

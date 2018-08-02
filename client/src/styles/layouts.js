@@ -28,7 +28,7 @@ const ratioBoxProps = props => css`
   overflow: ${props.overflow || "hidden"};
   ${MQ.large(
     css`
-      border-radius: ${props.rounded ? `${BASE_SPACING_UNIT * 2}px` : 0};
+      border-radius: ${props.rounded ? `${BASE_SPACING_UNIT}px` : 0};
     `
   )};
 `;

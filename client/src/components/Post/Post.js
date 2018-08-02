@@ -30,29 +30,27 @@ class Post extends React.Component<Props> {
           <Styled.PostWrapper>
             <Styled.PostContent>
               <RatioBox rounded antecedent={16} consequent={9}>
-                <RatioBoxContent>
+                <RatioBoxContent rounded>
                   <img src={post.photo.urls.regular} alt="post main photo" />
-                  <Styled.PostTitleContainer bottom="0px" left="0px">
-                    <Styled.PostTitle>
-                      <Pad>
-                        <H1>{post.title}</H1>
-                      </Pad>
-                    </Styled.PostTitle>
-                    {avatarUrl && (
-                      <Styled.AvatarContainer>
-                        <Avatar url={avatarUrl}>
-                          <P small flush>
-                            {post.photo.user.name}
-                          </P>
-                          <P tiny flush>{`published ${moment(
-                            post.createdAt
-                          ).fromNow()}`}</P>
-                        </Avatar>
-                      </Styled.AvatarContainer>
-                    )}
-                  </Styled.PostTitleContainer>
                 </RatioBoxContent>
               </RatioBox>
+              <Styled.PostTitleContainer>
+                <Styled.PostTitle>
+                  <H1 flush>{post.title}</H1>
+                </Styled.PostTitle>
+                {avatarUrl && (
+                  <Styled.PostAvatarContainer>
+                    <Avatar url={avatarUrl}>
+                      <P small flush>
+                        {post.photo.user.name}
+                      </P>
+                      <P tiny flush>{`published ${moment(
+                        post.createdAt
+                      ).fromNow()}`}</P>
+                    </Avatar>
+                  </Styled.PostAvatarContainer>
+                )}
+              </Styled.PostTitleContainer>
               <Pad>
                 <Styled.PostBody
                   dangerouslySetInnerHTML={this.createMarkup()}

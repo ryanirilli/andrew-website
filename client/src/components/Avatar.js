@@ -39,7 +39,7 @@ const Avatar = styled("div")`
 const AvatarContent = styled("div")`
   ${MQ.medium(
     css`
-      padding-top: ${BASE_SPACING_UNIT * 2}px;
+      padding-top: ${BASE_SPACING_UNIT * 3}px;
     `
   )};
 `;

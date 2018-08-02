@@ -4,6 +4,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import Post from "../../components/Post/Post";
+import TopNav from "../../components/TopNav";
 import { getPosts } from "../../actions/posts.actions";
 
 type Props = {
@@ -20,7 +21,10 @@ class Home extends React.Component<Props> {
   render() {
     const { posts } = this.props;
     return (
-      <React.Fragment>{posts && posts.map(this.renderPosts)}</React.Fragment>
+      <React.Fragment>
+        <TopNav />
+        {posts && posts.map(this.renderPosts)}
+      </React.Fragment>
     );
   }
 
