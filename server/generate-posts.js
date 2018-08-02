@@ -23,6 +23,8 @@ let id = 0;
 let postPhotoIndex = 0;
 let tagIndex = 0;
 
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 const getRandomPhoto = () => {
     if (postPhotoIndex === postPhotos.length) {
       shuffle(postPhotos);
@@ -60,24 +62,39 @@ const createBody = () => {
     > This line is part of the same quote. 
        
     ## ${faker.company.catchPhrase()}
-    ${faker.lorem.sentences(3)}
-    ${faker.lorem.sentences(8)}
+    ${faker.lorem.sentences(getRandomInt(3,6))}
+    ${faker.lorem.sentences(getRandomInt(5,10))}
     ${getRandomPhoto()}
     ## ${faker.company.catchPhrase()}
-    ${faker.lorem.sentences(10)}
-    ${faker.lorem.sentences(5)}
+    ${faker.lorem.sentences(getRandomInt(5,10))}
+    ${faker.lorem.sentences(getRandomInt(3,6))}
     ### ${faker.company.catchPhrase()}
-    ${faker.lorem.sentences(10)}
-    ${faker.lorem.sentences(3)}
+    ${faker.lorem.sentences(getRandomInt(5,10))}
+    ${faker.lorem.sentences(getRandomInt(3,6))}
     ${getRandomPhoto()}     
-    ${faker.lorem.sentences(10)}
+    ${faker.lorem.sentences(getRandomInt(5,10))}
     ### Conclusion
-    ${faker.lorem.sentences(4)}
-    ${faker.lorem.sentences(7)}
+    ${faker.lorem.sentences(getRandomInt(4,6))}
+    ${faker.lorem.sentences(getRandomInt(7,10))}
   `
     .trim()
     .replace(/^ +/gm, "");
 };
+
+const getComments = (numComments) => {
+  const result = [];
+  for (let i = 0; i < numComments; i++) {
+    result.push({
+      createdAt: faker.date.recent(),
+      author: {
+        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+        avatar: faker.image.avatar()
+      },
+      comment: faker.lorem.sentences(getRandomInt(3,5))      
+    });
+  }
+  return result;
+}
 
 const getData = async () => {
   console.log("...fetching unsplash photos");
@@ -94,7 +111,9 @@ const getData = async () => {
       title: faker.company.catchPhrase(),
       body: createBody(),
       createdAt: faker.date.recent(7),
-      tags: getRandomTags(Math.floor(Math.random() * 4) + 1),
+      tags: getRandomTags(getRandomInt(1,4)),
+      favorites: getRandomInt(1,20000),
+      comments: getComments(getRandomInt(1,20)),
       photo
     };
   });
