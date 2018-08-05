@@ -68,7 +68,7 @@ export const H1 = styled("h1")`
   ${headingProps};
 `;
 
-export const H2 = styled("h1")`
+export const H2 = styled("h2")`
   ${h2};
   ${headingProps};
 `;
@@ -81,6 +81,17 @@ export const H3 = styled("h3")`
 export const H4 = styled("h3")`
   ${h4};
   ${headingProps};
+`;
+
+export const SectionHeading = styled("h2")`
+  margin: 0 0 ${BASE_SPACING_UNIT * 4}px 0;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 0.707rem;
+  border-bottom: 3px solid;
+  color: ${COLORS.brand};
+  letter-spacing: 3px;
+  padding-bottom: 4px;
 `;
 
 const pProps = props => css`

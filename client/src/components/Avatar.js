@@ -1,3 +1,5 @@
+// @flow
+
 import * as React from "react";
 import { css } from "emotion";
 import styled from "react-emotion";
@@ -6,8 +8,7 @@ import { COLORS } from "../styles/colors";
 
 type Props = {|
   url: string,
-  title: string,
-  tagline?: ?string
+  children?: ?React.Node
 |};
 
 const AvatarContainer = styled("div")`
@@ -16,6 +17,7 @@ const AvatarContainer = styled("div")`
 
 const avatarBg = props => css`
   background: url(${props.url}) no-repeat;
+  margin-right: ${props.hasChildren ? BASE_SPACING_UNIT * 4 : 0}px;
 `;
 
 const Avatar = styled("div")`
@@ -23,7 +25,6 @@ const Avatar = styled("div")`
   background-size: cover;
   border-radius: 50%;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-  margin-right: ${BASE_SPACING_UNIT * 4}px;
   ${MQ.small(css`
     width: 35px;
     height: 35px;
@@ -46,7 +47,7 @@ const AvatarContent = styled("div")`
 
 export default ({ url, children }: Props) => (
   <AvatarContainer>
-    <Avatar url={url} />
-    <AvatarContent>{children}</AvatarContent>
+    <Avatar url={url} hasChildren={Boolean(children)} />
+    {children && <AvatarContent>{children}</AvatarContent>}
   </AvatarContainer>
 );
