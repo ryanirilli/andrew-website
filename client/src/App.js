@@ -11,12 +11,14 @@ type Props = {};
 class App extends React.Component<Props> {
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/posts/:postId" component={PostDetail} />
-        </Switch>
-      </Router>
+      <React.Fragment>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/posts/:postId" component={PostDetail} />
+          </Switch>
+        </Router>
+      </React.Fragment>
     );
   }
 }

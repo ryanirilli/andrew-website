@@ -1,7 +1,7 @@
 import Color from "color";
 
 const PRIMARY_BRAND_COLOR = "#FF4F2C";
-const SECONDARY_BRAND_COLOR = "#393E72";
+const SECONDARY_BRAND_COLOR = "#33A8FF";
 const PRIMARY_WASH = "#f3f4f5";
 const WHITE = "#fff";
 const LIGHT_GREY = "#ccc";

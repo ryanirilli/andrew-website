@@ -1,9 +1,11 @@
 // @flow
 import * as React from "react";
+import { Link } from "react-router-dom";
 import showdown from "showdown";
 import moment from "moment";
 import idx from "idx";
 import anime from "animejs";
+import { MdArrowBack } from "react-icons/md";
 import { H1, P } from "../../styles/typography";
 import { Container, RatioBox, RatioBoxContent } from "../../styles/layouts";
 import Avatar from "../Avatar";
@@ -12,12 +14,16 @@ import {
   PostContainer,
   PostWrapper,
   PostContent,
+  PostBack,
+  PostBackIcon,
   PostBody,
   PostTitleContainer,
   PostTitle,
   PostAvatarContainer
 } from "./PostStyles";
 import { BASE_SPACING_UNIT } from "../../styles/style-config";
+
+import Footer from "../../components/Footer";
 
 showdown.setFlavor("github");
 const converter = new showdown.Converter();
@@ -56,6 +62,13 @@ class Post extends React.Component<Props> {
             <PostContent>
               <RatioBox rounded antecedent={16} consequent={9}>
                 <RatioBoxContent rounded>
+                  <PostBack>
+                    <Link to="/">
+                      <PostBackIcon>
+                        <MdArrowBack />
+                      </PostBackIcon>
+                    </Link>
+                  </PostBack>
                   <img src={post.photo.urls.regular} alt="post hero" />
                 </RatioBoxContent>
               </RatioBox>
@@ -82,6 +95,7 @@ class Post extends React.Component<Props> {
             </PostContent>
           </PostWrapper>
         </Container>
+        <Footer />
       </PostContainer>
     );
   }

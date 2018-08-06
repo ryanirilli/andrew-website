@@ -9,20 +9,14 @@ import { withRouter } from "react-router-dom";
 import anime from "animejs";
 
 import { Container } from "../../styles/layouts";
-import {
-  H1,
-  H2,
-  H3,
-  SectionHeading,
-  postTitle,
-  P
-} from "../../styles/typography";
+import { H1, H2, H4, SectionHeading, postTitle } from "../../styles/typography";
 import { Pad } from "../../styles/spacing";
 
 import TopNav from "../../components/TopNav";
 import TopPosts from "../../components/TopPosts";
 import PostPreview from "../../components/PostPreview";
 import SubscribeBanner from "../../components/SubscribeBanner";
+import Footer from "../../components/Footer";
 
 import { getPosts } from "../../actions/posts.actions";
 
@@ -61,11 +55,62 @@ const HomeLayoutContentRight = styled("div")`
   grid-area: c-right;
 `;
 
+const HomeLayoutTrending = styled("div")`
+  display: flex;
+  flex-wrap: wrap;
+  ${MQ.small(css`
+    > div {
+      flex-basis: 100%;
+    }
+  `)};
+  ${MQ.medium(css`
+    flex-wrap: nowrap;
+    > div {
+      flex-basis: 33.33%;
+      padding-right: ${BASE_SPACING_UNIT * 4}px;
+    }
+  `)};
+  ${MQ.large(css`
+    flex-wrap: wrap;
+    > div {
+      flex-basis: 100%;
+    }
+  `)};
+`;
+
+const HomeLayoutFeatured = styled("div")`
+  display: flex;
+  ${MQ.small(css`
+    flex-wrap: wrap;
+    > div {
+      flex-basis: 100%;
+    }
+  `)};
+  ${MQ.medium(css`
+    flex-wrap: nowrap;
+    > div {
+      padding-right: ${BASE_SPACING_UNIT * 4}px;
+      flex-basis: 50%;
+      :last-child {
+        padding-right: 0;
+      }
+    }
+  `)};
+  ${MQ.large(css`
+    > div {
+      padding-right: ${BASE_SPACING_UNIT * 8}px;
+      :last-child {
+        padding-right: 0;
+      }
+    }
+  `)};
+`;
+
 const HeroTitle = styled(H1)`
   ${postTitle};
 `;
 
-const PostTitle = styled(H3)`
+const PostTitle = styled(H4)`
   ${postTitle};
 `;
 
@@ -84,6 +129,7 @@ class Home extends React.Component<Props> {
   homeSidebarEl: ?HTMLDivElement = null;
   homeLeftEl: ?HTMLDivElement = null;
   homeRightEl: ?HTMLDivElement = null;
+  homeLowerSectionEl: ?HTMLDivElement = null;
 
   componentDidMount() {
     const { posts } = this.props;
@@ -98,7 +144,7 @@ class Home extends React.Component<Props> {
     return (
       <React.Fragment>
         <TopNav />
-        <Pad flushTop>
+        <Pad flushEnds>
           <Container>
             <HomeLayout>
               <HomeLayoutSidebar innerRef={el => (this.homeSidebarEl = el)}>
@@ -136,30 +182,51 @@ class Home extends React.Component<Props> {
               <HomeLayoutContentRight innerRef={el => (this.homeRightEl = el)}>
                 <Pad flushSides flushTop>
                   <SectionHeading flush>Trending stories</SectionHeading>
-                  <PostPreview
-                    small
-                    post={posts[5]}
-                    onClick={e => this.goToPost(`/posts/${posts[5].id}`)}
-                    TitleComponent={PostTitle}
-                  />
-                  <PostPreview
-                    small
-                    post={posts[6]}
-                    onClick={e => this.goToPost(`/posts/${posts[6].id}`)}
-                    TitleComponent={PostTitle}
-                  />
-                  <PostPreview
-                    small
-                    post={posts[7]}
-                    onClick={e => this.goToPost(`/posts/${posts[7].id}`)}
-                    TitleComponent={PostTitle}
-                  />
+                  <HomeLayoutTrending>
+                    <PostPreview
+                      small
+                      post={posts[5]}
+                      onClick={e => this.goToPost(`/posts/${posts[5].id}`)}
+                      TitleComponent={PostTitle}
+                    />
+                    <PostPreview
+                      small
+                      post={posts[6]}
+                      onClick={e => this.goToPost(`/posts/${posts[6].id}`)}
+                      TitleComponent={PostTitle}
+                    />
+                    <PostPreview
+                      small
+                      post={posts[7]}
+                      onClick={e => this.goToPost(`/posts/${posts[7].id}`)}
+                      TitleComponent={PostTitle}
+                    />
+                  </HomeLayoutTrending>
                 </Pad>
               </HomeLayoutContentRight>
             </HomeLayout>
           </Container>
         </Pad>
-        <SubscribeBanner />
+        <div ref={el => (this.homeLowerSectionEl = el)}>
+          <SubscribeBanner />
+          <Pad>
+            <Container>
+              <HomeLayoutFeatured>
+                <PostPreview
+                  post={posts[3]}
+                  onClick={e => this.goToPost(`/posts/${posts[3].id}`)}
+                  TitleComponent={MainTitle}
+                />
+                <PostPreview
+                  post={posts[4]}
+                  onClick={e => this.goToPost(`/posts/${posts[4].id}`)}
+                  TitleComponent={MainTitle}
+                />
+              </HomeLayoutFeatured>
+            </Container>
+          </Pad>
+          <Footer />
+        </div>
       </React.Fragment>
     );
   }
@@ -186,6 +253,12 @@ class Home extends React.Component<Props> {
     anime({
       ...baseAnimation,
       targets: this.homeLeftEl,
+      delay: 150
+    });
+
+    anime({
+      ...baseAnimation,
+      targets: this.homeLowerSectionEl,
       delay: 150
     });
 

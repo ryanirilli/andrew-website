@@ -64,8 +64,8 @@ const p = css`
 `;
 
 const blockquote = css`
-  background: ${COLORS.wash};
-  border-left: ${BASE_SPACING_UNIT}px solid ${COLORS.lightGrey};
+  background: ${COLORS.lightestGrey};
+  border-left: ${BASE_SPACING_UNIT}px solid ${COLORS.brandSecondary};
   margin: 0;
   padding: ${BASE_SPACING_UNIT * 4}px 0 ${BASE_SPACING_UNIT * 4}px
     ${BASE_SPACING_UNIT * 4}px;

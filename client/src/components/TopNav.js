@@ -162,7 +162,7 @@ class TopNav extends React.Component<Props, State> {
           <a href="#">why better up?</a>
         </TopNavLink>
         <TopNavLink>
-          <a href="#">about us</a>
+          <a href="#">sign up</a>
         </TopNavLink>
       </TopNavLinks>
     );
@@ -196,9 +196,11 @@ class TopNav extends React.Component<Props, State> {
     return (
       <TopNavContainer>
         <TopNavContent>
-          <LogoContainer>
-            <LogoImg src={Logo} alt="logo" />
-          </LogoContainer>
+          <Link to="/">
+            <LogoContainer>
+              <LogoImg src={Logo} alt="logo" />
+            </LogoContainer>
+          </Link>
           <div>{links}</div>
         </TopNavContent>
       </TopNavContainer>

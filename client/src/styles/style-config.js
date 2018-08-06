@@ -8,7 +8,7 @@ export const MAX_WIDTH = 1440;
 const BREAKPOINTS = {
   small: 0,
   medium: 768,
-  large: 1080,
+  large: 1024,
   xLarge: MAX_WIDTH
 };
 
