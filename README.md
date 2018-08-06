@@ -21,4 +21,4 @@ cd ./client
 yarn start
 ```
 
-go to http://localhost:3000 in your browser
+The startup script should open your browser but if it doesn't, open your browser and go to http://localhost:3000
