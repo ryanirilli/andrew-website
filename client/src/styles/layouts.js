@@ -1,7 +1,7 @@
-import * as React from "react";
 import styled from "react-emotion";
 import { css } from "emotion";
 import { MAX_WIDTH, BASE_SPACING_UNIT, MQ } from "./style-config";
+import { COLORS } from "./colors";
 
 export const Container = styled("div")`
   max-width: ${MAX_WIDTH}px;
@@ -40,5 +40,6 @@ export const RatioBoxContent = styled("div")`
   left: 0;
   height: 100%;
   width: 100%;
+  background: ${COLORS.lightestGrey};
   ${ratioBoxProps};
 `;

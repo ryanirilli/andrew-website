@@ -4,7 +4,7 @@ import { css } from "emotion";
 
 export const PostWrapper = styled("div")(
   MQ.medium(css({ padding: "3rem 7rem 0 7rem" })),
-  MQ.large(css({ padding: "2rem 13rem 0 13rem" }))
+  MQ.large(css({ padding: "1rem 13rem 0 13rem" }))
 );
 
 export const PostContent = styled("div")``;

@@ -62,15 +62,13 @@ const getRandomTags = numTags => {
 
 const createBody = () => {
   return `
-    ${faker.lorem.sentences(
-      5
-    )} [I'm an inline-style link](https://www.google.com) ${faker.lorem.sentences(
-    5
-  )} :smiley:
+    ${faker.lorem.sentences(5)} [${faker.lorem.words(
+    3
+  )} link](https://www.google.com) ${faker.lorem.sentences(5)} :smiley:
     ${getRandomPhoto()}
     
-    > Blockquotes are very handy in email to emulate reply text.
-    > This line is part of the same quote. 
+    > ${faker.lorem.sentences(1)}
+    > ${faker.lorem.sentences(1)}
        
     ## ${faker.company.catchPhrase()}
     ${faker.lorem.sentences(getRandomInt(3, 6))}

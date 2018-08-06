@@ -15,7 +15,7 @@ const dynamicPad = props => {
 
   const mqSmallVal = BASE_SPACING_UNIT * (small ? 1 : 4);
   const mqMediumVal = BASE_SPACING_UNIT * (small ? 2 : 4);
-  const mqLargeVal = BASE_SPACING_UNIT * (small ? 4 : 4);
+  const mqLargeVal = BASE_SPACING_UNIT * (small ? 4 : 8);
 
   return css`
     ${MQ.small(

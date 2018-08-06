@@ -5,14 +5,27 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import "./index.css";
 import App from "./App";
+import ResizeObserver from "resize-observer-polyfill";
+import { getBreakpointNameFromWidth } from "./styles/style-config";
+
 import registerServiceWorker from "./registerServiceWorker";
 
+import { setBreakpointName } from "./actions/app.actions";
+
+import appReducer from "./reducers/app.reducer";
 import postsReducer from "./reducers/posts.reducer";
 
 export const store = createStore(
-  combineReducers({ posts: postsReducer }),
+  combineReducers({ app: appReducer, posts: postsReducer }),
   applyMiddleware(thunk)
 );
+
+const ro = new ResizeObserver(entries => {
+  const { width } = entries[0].contentRect;
+  const breakpointName = getBreakpointNameFromWidth(width);
+  store.dispatch(setBreakpointName(breakpointName));
+});
+ro.observe(document.body);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -63,6 +63,18 @@ const p = css`
   )};
 `;
 
+const blockquote = css`
+  background: ${COLORS.wash};
+  border-left: ${BASE_SPACING_UNIT}px solid ${COLORS.lightGrey};
+  margin: 0;
+  padding: ${BASE_SPACING_UNIT * 4}px 0 ${BASE_SPACING_UNIT * 4}px
+    ${BASE_SPACING_UNIT * 4}px;
+  font-style: italic;
+  p {
+    padding: 0;
+  }
+`;
+
 export const H1 = styled("h1")`
   ${h1};
   ${headingProps};
@@ -78,7 +90,7 @@ export const H3 = styled("h3")`
   ${headingProps};
 `;
 
-export const H4 = styled("h3")`
+export const H4 = styled("h4")`
   ${h4};
   ${headingProps};
 `;
@@ -87,11 +99,15 @@ export const SectionHeading = styled("h2")`
   margin: 0 0 ${BASE_SPACING_UNIT * 4}px 0;
   font-weight: 100;
   text-transform: uppercase;
-  font-size: 0.707rem;
+  font-size: 0.8rem;
   border-bottom: 3px solid;
   color: ${COLORS.brand};
   letter-spacing: 3px;
   padding-bottom: 4px;
+`;
+
+export const postTitle = css`
+  margin: ${BASE_SPACING_UNIT * 2}px 0 ${BASE_SPACING_UNIT}px 0;
 `;
 
 const pProps = props => css`
@@ -121,4 +137,5 @@ injectGlobal`
   h3 {${h3}}
   h4 {${h3}}
   p {${p}}
+  blockquote {${blockquote}}
 `;

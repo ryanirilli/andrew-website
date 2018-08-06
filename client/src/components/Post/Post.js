@@ -3,11 +3,21 @@ import * as React from "react";
 import showdown from "showdown";
 import moment from "moment";
 import idx from "idx";
+import anime from "animejs";
 import { H1, P } from "../../styles/typography";
 import { Container, RatioBox, RatioBoxContent } from "../../styles/layouts";
 import Avatar from "../Avatar";
 import { Pad } from "../../styles/spacing";
-import * as Styled from "./PostStyles";
+import {
+  PostContainer,
+  PostWrapper,
+  PostContent,
+  PostBody,
+  PostTitleContainer,
+  PostTitle,
+  PostAvatarContainer
+} from "./PostStyles";
+import { BASE_SPACING_UNIT } from "../../styles/style-config";
 
 showdown.setFlavor("github");
 const converter = new showdown.Converter();
@@ -17,6 +27,21 @@ type Props = {
 };
 
 class Post extends React.Component<Props> {
+  wrapperEl: ?HTMLDivElement = null;
+
+  componentDidMount() {
+    const baseAnimation = {
+      opacity: [0, 1],
+      translateX: [`-${BASE_SPACING_UNIT * 8}px`, 0],
+      easing: "easeInOutSine",
+      duration: 800
+    };
+    anime({
+      ...baseAnimation,
+      targets: this.wrapperEl
+    });
+  }
+
   createMarkup(): Object {
     return { __html: converter.makeHtml(this.props.post.body) };
   }
@@ -25,21 +50,21 @@ class Post extends React.Component<Props> {
     const { post } = this.props;
     const avatarUrl = idx(post, _ => _.photo.user.profile_image.medium);
     return (
-      <Styled.PostContainer>
+      <PostContainer>
         <Container>
-          <Styled.PostWrapper>
-            <Styled.PostContent>
+          <PostWrapper innerRef={el => (this.wrapperEl = el)}>
+            <PostContent>
               <RatioBox rounded antecedent={16} consequent={9}>
                 <RatioBoxContent rounded>
-                  <img src={post.photo.urls.regular} alt="post main photo" />
+                  <img src={post.photo.urls.regular} alt="post hero" />
                 </RatioBoxContent>
               </RatioBox>
-              <Styled.PostTitleContainer>
-                <Styled.PostTitle>
+              <PostTitleContainer>
+                <PostTitle>
                   <H1 flush>{post.title}</H1>
-                </Styled.PostTitle>
+                </PostTitle>
                 {avatarUrl && (
-                  <Styled.PostAvatarContainer>
+                  <PostAvatarContainer>
                     <Avatar url={avatarUrl}>
                       <P small flush>
                         {post.photo.user.name}
@@ -48,18 +73,16 @@ class Post extends React.Component<Props> {
                         post.createdAt
                       ).fromNow()}`}</P>
                     </Avatar>
-                  </Styled.PostAvatarContainer>
+                  </PostAvatarContainer>
                 )}
-              </Styled.PostTitleContainer>
-              <Pad>
-                <Styled.PostBody
-                  dangerouslySetInnerHTML={this.createMarkup()}
-                />
+              </PostTitleContainer>
+              <Pad flushTop>
+                <PostBody dangerouslySetInnerHTML={this.createMarkup()} />
               </Pad>
-            </Styled.PostContent>
-          </Styled.PostWrapper>
+            </PostContent>
+          </PostWrapper>
         </Container>
-      </Styled.PostContainer>
+      </PostContainer>
     );
   }
 }
