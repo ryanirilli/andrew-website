@@ -67,6 +67,15 @@ library. By leveraging promises, timelines, React lifecycle hooks and async/awai
 and maintainable. Again, with more time I would build the animation principles into the design system and create a cohesive
 motion language around the user experience.
 
+## Flow
+
+This site uses the [Flow](https://flow.org/) static type checker in the client. The benefits of statically typed Javascript
+cannot be understated and greatly help with the developer experience and preventing runtime bugs.
+
+## Prettier
+
+All code formatting is managed using [Prettier](https://github.com/prettier/prettier)
+
 ## Thank You
 
 Thank you Better Up team for your time and consideration. I am very passionate about this work and love building great
