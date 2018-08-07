@@ -23,6 +23,7 @@ export const TopNavContent = styled("div")``;
 
 export const LogoContainer = styled("div")`
   text-align: center;
+  margin: ${BASE_SPACING_UNIT}px 0;
 `;
 
 export const LogoImg = styled("img")`
@@ -73,7 +74,7 @@ const MenuStyles = css`
   color: ${COLORS.brandSecondary};
   cursor: pointer;
   position: absolute;
-  font-size: 2rem;
+  font-size: 1.563rem;
   left: ${BASE_SPACING_UNIT * 2}px;
   top: ${BASE_SPACING_UNIT * 2}px;
   :hover {
@@ -83,10 +84,15 @@ const MenuStyles = css`
 
 const TopNavMenuIcon = styled(MdMenu)`
   ${MenuStyles};
+  top: ${BASE_SPACING_UNIT * 4}px;
+  left: ${BASE_SPACING_UNIT * 4}px;
 `;
 
 const TopNavCloseIcon = styled(MdClose)`
   ${MenuStyles};
+  left: auto;
+  right: ${BASE_SPACING_UNIT * 2}px;
+  color: ${COLORS.darkGrey};
 `;
 
 const TopNavMenu = styled("div")`
@@ -122,7 +128,7 @@ class TopNav extends React.Component<Props, State> {
   state: State = {
     isMenuOpen: false
   };
-
+  isAnimating: boolean = false;
   topNavMenuEl: ?HTMLDivElement = null;
   topNavMenuBgEl: ?HTMLDivElement = null;
 
@@ -208,6 +214,10 @@ class TopNav extends React.Component<Props, State> {
   }
 
   toggleMenu = async () => {
+    if (this.isAnimating) {
+      return;
+    }
+    this.isAnimating = true;
     if (this.state.isMenuOpen) {
       anime({
         targets: this.topNavMenuEl,
@@ -224,6 +234,7 @@ class TopNav extends React.Component<Props, State> {
         easing: "easeOutCirc"
       }).finished;
     }
+    this.isAnimating = false;
     this.setState(prevState => ({
       isMenuOpen: !prevState.isMenuOpen
     }));

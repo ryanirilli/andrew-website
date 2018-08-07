@@ -21,7 +21,7 @@ const BannerWrapper = styled("div")`
 
 const Rocket = styled("img")`
   position: absolute;
-  top: 100px;
+  top: 50%;
   width: 200px;
   right: ${BASE_SPACING_UNIT * 30}px;
   mix-blend-mode: luminosity;
@@ -45,10 +45,14 @@ const BannerContainer = styled("div")`
   color: ${COLORS.white};
   ${MQ.small(
     css`
-      padding: ${BASE_SPACING_UNIT * 20}px 0;
+      padding: ${BASE_SPACING_UNIT * 2}px 0 ${BASE_SPACING_UNIT * 65}px 0;
     `
   )};
-  p {
+  ${MQ.medium(
+    css`
+      padding: ${BASE_SPACING_UNIT * 20}px 0;
+    `
+  )} p {
     color: ${COLORS.white};
   }
 `;

@@ -17,22 +17,20 @@ const PostContainer = styled("div")`
   img {
     width: 100%;
   }
-  :hover {
-    h1,
-    h2,
-    h3,
-    h4 {
-      color: ${COLORS.brand};
-    }
-    p {
-      color: ${COLORS.darkGrey};
-    }
-  }
   ${MQ.medium(css`
     :hover {
       transform: translateY(-${BASE_SPACING_UNIT}px);
       box-shadow: 0 ${BASE_SPACING_UNIT}px ${BASE_SPACING_UNIT * 4}px
         rgba(0, 0, 0, 0.15);
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: ${COLORS.brand};
+      }
+      p {
+        color: ${COLORS.darkGrey};
+      }
     }
   `)};
 `;
