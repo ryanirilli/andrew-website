@@ -60,6 +60,13 @@ The entire app is based on a `4px` grid aliased as `BASE_SPACING_UNIT` and that 
 This ensures a certain vertical rhythm. Given more time I would refactor some instances to have more constants with named spacing
 values similar to the breakpoints.
 
+## Animation
+
+For animated transitions and interactions I chose to use [Anime.js](http://animejs.com/) which is a declarative animation
+library. By leveraging promises, timelines, React lifecycle hooks and async/await, it makes animation integration very concise
+and maintainable. Again, with more time I would build the animation principles into the design system and create a cohesive
+motion language around the user experience.
+
 ## Thank You
 
 Thank you Better Up team for your time and consideration. I am very passionate about this work and love building great
