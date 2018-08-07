@@ -7,9 +7,7 @@ import numbro from "numbro";
 import { BASE_SPACING_UNIT } from "../styles/style-config";
 import { COLORS } from "../styles/colors";
 import { MdFavorite } from "react-icons/md";
-
 import { H4, P } from "../styles/typography";
-
 import Avatar from "../components/Avatar";
 
 const PostContainer = styled("div")`

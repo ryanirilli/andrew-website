@@ -12,10 +12,13 @@ const ButtonContainer = styled("div")`
   color: ${COLORS.white};
   padding: 8px 16px;
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: 100px;
   align-items: center;
   transition: all 250ms ease;
   box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 200;
   :hover {
     box-shadow: 0 ${BASE_SPACING_UNIT}px ${BASE_SPACING_UNIT}px
       rgba(0, 0, 0, 0.1);
@@ -24,12 +27,24 @@ const ButtonContainer = styled("div")`
   }
 `;
 
+const ButtonIcon = styled("span")`
+  margin-left: ${BASE_SPACING_UNIT * 2}px;
+`;
+
 type Props = {
-  children?: React.Node
+  children?: React.Node,
+  icon?: React.Node,
+  innerRef?: HTMLDivElement => void
 };
 
 export default class Button extends React.Component<Props> {
   render() {
-    return <ButtonContainer>{this.props.children}</ButtonContainer>;
+    const { children, icon } = this.props;
+    return (
+      <ButtonContainer innerRef={this.props.innerRef}>
+        {children}
+        {icon && <ButtonIcon>{icon}</ButtonIcon>}
+      </ButtonContainer>
+    );
   }
 }

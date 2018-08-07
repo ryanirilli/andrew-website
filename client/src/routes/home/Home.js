@@ -67,12 +67,13 @@ const HomeLayoutTrending = styled("div")`
     flex-wrap: nowrap;
     > div {
       flex-basis: 33.33%;
-      padding-right: ${BASE_SPACING_UNIT * 4}px;
+      margin-right: ${BASE_SPACING_UNIT * 4}px;
     }
   `)};
   ${MQ.large(css`
     flex-wrap: wrap;
     > div {
+      margin-right: 0;
       flex-basis: 100%;
     }
   `)};
@@ -89,18 +90,18 @@ const HomeLayoutFeatured = styled("div")`
   ${MQ.medium(css`
     flex-wrap: nowrap;
     > div {
-      padding-right: ${BASE_SPACING_UNIT * 4}px;
+      margin-right: ${BASE_SPACING_UNIT * 4}px;
       flex-basis: 50%;
       :last-child {
-        padding-right: 0;
+        margin-right: 0;
       }
     }
   `)};
   ${MQ.large(css`
     > div {
-      padding-right: ${BASE_SPACING_UNIT * 8}px;
+      margin-right: ${BASE_SPACING_UNIT * 8}px;
       :last-child {
-        padding-right: 0;
+        margin-right: 0;
       }
     }
   `)};
@@ -157,13 +158,11 @@ class Home extends React.Component<Props> {
                 </Pad>
               </HomeLayoutSidebar>
               <HomeLayoutContentMain innerRef={el => (this.homeHeroEl = el)}>
-                <Pad flushSides flushTop>
-                  <PostPreview
-                    post={posts[0]}
-                    onClick={e => this.goToPost(`/posts/${posts[0].id}`)}
-                    TitleComponent={HeroTitle}
-                  />
-                </Pad>
+                <PostPreview
+                  post={posts[0]}
+                  onClick={e => this.goToPost(`/posts/${posts[0].id}`)}
+                  TitleComponent={HeroTitle}
+                />
               </HomeLayoutContentMain>
               <HomeLayoutContentLeft innerRef={el => (this.homeLeftEl = el)}>
                 <Pad flushLeft flushTop>

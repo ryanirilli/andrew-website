@@ -89,11 +89,13 @@ export const PostAvatarContainer = styled("div")`
   ${MQ.small(
     css`
       padding-top: ${BASE_SPACING_UNIT * 4}px;
+      margin-bottom: ${BASE_SPACING_UNIT * 4}px;
     `
   )};
   ${MQ.medium(
     css`
       padding-top: 0;
+      margin-bottom: 0;
     `
   )};
 `;

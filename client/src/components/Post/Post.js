@@ -10,6 +10,8 @@ import { H1, P } from "../../styles/typography";
 import { Container, RatioBox, RatioBoxContent } from "../../styles/layouts";
 import Avatar from "../Avatar";
 import { Pad } from "../../styles/spacing";
+import { BASE_SPACING_UNIT } from "../../styles/style-config";
+import Footer from "../../components/Footer";
 import {
   PostContainer,
   PostWrapper,
@@ -21,9 +23,6 @@ import {
   PostTitle,
   PostAvatarContainer
 } from "./PostStyles";
-import { BASE_SPACING_UNIT } from "../../styles/style-config";
-
-import Footer from "../../components/Footer";
 
 showdown.setFlavor("github");
 const converter = new showdown.Converter();

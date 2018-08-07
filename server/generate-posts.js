@@ -7,7 +7,7 @@ const shuffle = require("lodash.shuffle");
 dotenv.config();
 
 const { UNSPLASH_ACCESS_KEY } = process.env;
-const unsplashUrl = `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&count=30&query=tech`;
+const unsplashUrl = `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&count=30&query=professional`;
 const tags = [
   "tech",
   "artificial intelligence",
