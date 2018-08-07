@@ -25,7 +25,16 @@ const Rocket = styled("img")`
   width: 200px;
   right: ${BASE_SPACING_UNIT * 30}px;
   mix-blend-mode: luminosity;
-  opacity: 0.6;
+  ${MQ.small(
+    css`
+      opacity: 0.3;
+    `
+  )};
+  ${MQ.medium(
+    css`
+      opacity: 0.6;
+    `
+  )};
 `;
 
 const BannerContainer = styled("div")`

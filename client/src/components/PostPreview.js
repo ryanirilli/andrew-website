@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import styled from "react-emotion";
+import { css } from "emotion";
 import { P } from "../styles/typography";
 import { COLORS } from "../styles/colors";
 import { RatioBox, RatioBoxContent } from "../styles/layouts";
 import { Pad } from "../styles/spacing";
-import { BASE_SPACING_UNIT } from "../styles/style-config";
+import { BASE_SPACING_UNIT, MQ } from "../styles/style-config";
 
 const PostContainer = styled("div")`
   cursor: pointer;
@@ -17,9 +18,6 @@ const PostContainer = styled("div")`
     width: 100%;
   }
   :hover {
-    transform: translateY(-${BASE_SPACING_UNIT}px);
-    box-shadow: 0 ${BASE_SPACING_UNIT}px ${BASE_SPACING_UNIT * 4}px
-      rgba(0, 0, 0, 0.15);
     h1,
     h2,
     h3,
@@ -30,6 +28,13 @@ const PostContainer = styled("div")`
       color: ${COLORS.darkGrey};
     }
   }
+  ${MQ.medium(css`
+    :hover {
+      transform: translateY(-${BASE_SPACING_UNIT}px);
+      box-shadow: 0 ${BASE_SPACING_UNIT}px ${BASE_SPACING_UNIT * 4}px
+        rgba(0, 0, 0, 0.15);
+    }
+  `)};
 `;
 
 const PostImg = styled("img")`
