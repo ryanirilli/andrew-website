@@ -1,9 +1,9 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import "./index.css";
 import App from "./App";
 import ResizeObserver from "resize-observer-polyfill";
 import { getBreakpointNameFromWidth } from "./styles/style-config";
@@ -13,10 +13,9 @@ import registerServiceWorker from "./registerServiceWorker";
 import { setBreakpointName } from "./actions/app.actions";
 
 import appReducer from "./reducers/app.reducer";
-import postsReducer from "./reducers/posts.reducer";
 
 export const store = createStore(
-  combineReducers({ app: appReducer, posts: postsReducer }),
+  combineReducers({ app: appReducer }),
   applyMiddleware(thunk)
 );
 
