@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@vimeo/player": "^2.6.3",
     "animejs": "^2.2.0",
     "color": "^3.0.0",
     "emotion": "^9.2.6",

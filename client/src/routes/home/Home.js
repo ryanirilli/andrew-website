@@ -14,10 +14,15 @@ import COLORS from "../../styles/colors";
 import { Page, FlexCenter } from "../../styles/layouts";
 import { H4 } from "../../styles/typography";
 
-import Reel from "./../../components/Reel";
+import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
 const Gallery = Loadable({
   loader: () => import("./../../components/PhotoGallery"),
+  loading: () => null
+});
+
+const VimeoPlayer = Loadable({
+  loader: () => import("./../../components/VimeoPlayer"),
   loading: () => null
 });
 
@@ -52,6 +57,7 @@ const Tags = styled("ul")`
   display: inline-flex;
   list-style: none;
   padding: 0;
+  margin-bottom: 20px;
   > li {
     margin-top: 0;
     :not(:first-child) {
@@ -66,10 +72,18 @@ type Props = {
   history: RouterHistory
 };
 
-class Home extends React.Component<Props> {
+type State = {
+  isShowingReel: boolean
+};
+
+class Home extends React.Component<Props, State> {
   containerEl: { current: null | HTMLDivElement } = React.createRef();
   heroEl: { current: null | HTMLDivElement } = React.createRef();
   galleryEl: { current: null | HTMLDivElement } = React.createRef();
+
+  state: State = {
+    isShowingReel: false
+  };
 
   componentDidMount() {
     this.animateIn();
@@ -78,39 +92,66 @@ class Home extends React.Component<Props> {
   render() {
     const { breakpoint } = this.props;
     return (
-      <Wrapper innerRef={this.containerEl}>
-        <Page background={COLORS.wash}>
-          <Container>
-            <div>
-              <FlexCenter>
-                <div onClick={() => this.animateOut("/about")}>
-                  <Hero innerRef={this.heroEl}>
-                    <Logo color={COLORS.brand} />
-                    <Name light uppercase>
-                      Andrew Franks
-                    </Name>
-                    <div>
-                      <Tags>
-                        <li>Director</li>
-                        <li>Cinematographer</li>
-                        <li>Editor</li>
-                      </Tags>
-                    </div>
-                    <Reel />
-                  </Hero>
-                </div>
-              </FlexCenter>
-            </div>
-            {breakpoint !== "small" && (
-              <div ref={this.galleryEl}>
-                <Gallery />
+      <React.Fragment>
+        {this.state.isShowingReel && <VimeoPlayer onClose={this.onCloseReel} />}
+        <Wrapper innerRef={this.containerEl}>
+          <Page background={COLORS.wash}>
+            <Container>
+              <div>
+                <FlexCenter>
+                  <div>
+                    <Hero innerRef={this.heroEl}>
+                      <Logo color={COLORS.brand} />
+                      <Name light uppercase>
+                        Andrew Franks
+                      </Name>
+                      <div>
+                        <Tags>
+                          <li>Director</li>
+                          <li>Cinematographer</li>
+                          <li>Editor</li>
+                        </Tags>
+                      </div>
+                      <div onClick={this.playReel}>
+                        <Reel isShowingReel={this.state.isShowingReel} />
+                      </div>
+                    </Hero>
+                  </div>
+                </FlexCenter>
               </div>
-            )}
-          </Container>
-        </Page>
-      </Wrapper>
+              {breakpoint !== "small" && (
+                <div ref={this.galleryEl}>
+                  <Gallery />
+                </div>
+              )}
+            </Container>
+          </Page>
+        </Wrapper>
+      </React.Fragment>
     );
   }
+
+  onCloseReel = async () => {
+    this.setState({ isShowingReel: false });
+    await anime({
+      targets: this.containerEl.current,
+      scale: [0.75, 1],
+      easing: "easeInOutQuint",
+      opacity: [0.5, 1],
+      duration: 1000
+    }).finished;
+  };
+
+  playReel = async () => {
+    this.setState({ isShowingReel: true });
+    await anime({
+      targets: this.containerEl.current,
+      scale: [1, 0.75],
+      easing: "easeInOutQuint",
+      opacity: [1, 0.5],
+      duration: 1000
+    }).finished;
+  };
 
   async animateIn() {
     anime({
