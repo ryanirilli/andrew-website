@@ -1,19 +1,28 @@
+// @flow
 import styled from "react-emotion";
 import { injectGlobal, css } from "emotion";
 import { BASE_SPACING_UNIT, MQ } from "../styles/style-config";
-import { COLORS } from "../styles/colors";
+import COLORS from "../styles/colors";
 
 /**
  * Type scale is based on the Major Third
  * https://type-scale.com/
  */
 
+type HeadingProps = {
+  flush?: boolean,
+  light?: boolean,
+  uppercase?: boolean
+};
+
 const headingMarginTopDefault = `${BASE_SPACING_UNIT * 10}px`;
 const headingMarginBottomDefault = `${BASE_SPACING_UNIT * 4}px`;
 
-const headingProps = props => css`
+const headingProps = (props: HeadingProps): string => css`
   margin-top: ${props.flush ? 0 : headingMarginTopDefault};
   margin-bottom: ${props.flush ? 0 : headingMarginBottomDefault};
+  font-weight: ${props.light ? 400 : 800};
+  text-transform: ${props.uppercase ? "uppercase" : "none"};
 `;
 
 const headingBase = css`
@@ -93,21 +102,6 @@ export const H3 = styled("h3")`
 export const H4 = styled("h4")`
   ${h4};
   ${headingProps};
-`;
-
-export const SectionHeading = styled("h2")`
-  margin: 0 0 ${BASE_SPACING_UNIT * 4}px 0;
-  font-weight: 100;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  border-bottom: 3px solid;
-  color: ${COLORS.brand};
-  letter-spacing: 3px;
-  padding-bottom: 4px;
-`;
-
-export const postTitle = css`
-  margin: ${BASE_SPACING_UNIT * 2}px 0 ${BASE_SPACING_UNIT}px 0;
 `;
 
 const pProps = props => css`

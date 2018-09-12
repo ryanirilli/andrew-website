@@ -1,7 +1,7 @@
 import styled from "react-emotion";
 import { css } from "emotion";
 import { MAX_WIDTH, BASE_SPACING_UNIT, MQ } from "./style-config";
-import { COLORS } from "./colors";
+import COLORS from "./colors";
 
 export const Container = styled("div")`
   max-width: ${MAX_WIDTH}px;
@@ -42,4 +42,22 @@ export const RatioBoxContent = styled("div")`
   width: 100%;
   background: ${COLORS.lightestGrey};
   ${ratioBoxProps};
+`;
+
+const pageProps = ({ background }) => css`
+  background: ${background || "transparent"};
+`;
+
+export const Page = styled("div")`
+  width: 100vw;
+  height: 100vh;
+  ${pageProps};
+`;
+
+export const FlexCenter = styled("div")`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
 `;

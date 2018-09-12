@@ -19,17 +19,24 @@ export const store = createStore(
   applyMiddleware(thunk)
 );
 
+let hasInitialized = false;
+const init = () => {
+  hasInitialized = true;
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById("root")
+  );
+  registerServiceWorker();
+};
+
 const ro = new ResizeObserver(entries => {
   const { width } = entries[0].contentRect;
   const breakpointName = getBreakpointNameFromWidth(width);
   store.dispatch(setBreakpointName(breakpointName));
+  if (!hasInitialized) {
+    init();
+  }
 });
 ro.observe(document.body);
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
-registerServiceWorker();
