@@ -1,7 +1,6 @@
 const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
-const posts = require("./posts");
 dotenv.config();
 
 const app = express();
