@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styled from "react-emotion";
-import type { RouterHistory } from "./../../../flow-typed/npm/react-router-dom_v4.x.x.js";
+import type { RouterHistory } from "./../../flow-typed/npm/react-router-dom_v4.x.x";
 import Loadable from "react-loadable";
 import { css } from "emotion";
 import { connect } from "react-redux";
@@ -11,11 +11,13 @@ import anime from "animejs";
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
 
-import { Page, FlexCenter } from "../../styles/layouts";
-import { H4 } from "../../styles/typography";
+import { Page, Container, FlexCenter } from "../../styles/layouts";
+import { BrandHeading, H4 } from "../../styles/typography";
 
 import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
+import TopNav from "./../../components/TopNav";
+
 const Gallery = Loadable({
   loader: () => import("./../../components/PhotoGallery"),
   loading: () => null
@@ -30,7 +32,7 @@ const Wrapper = styled("div")`
   opacity: 0;
 `;
 
-const Container = styled("div")`
+const HeroContainer = styled("div")`
   display: grid;
   height: 100%;
   ${MQ.small(css`
@@ -58,6 +60,7 @@ const Tags = styled("ul")`
   list-style: none;
   padding: 0;
   margin-bottom: 20px;
+  color: #b3ada2;
   > li {
     margin-top: 0;
     :not(:first-child) {
@@ -93,10 +96,11 @@ class Home extends React.Component<Props, State> {
     const { breakpoint } = this.props;
     return (
       <React.Fragment>
+        <TopNav />
         {this.state.isShowingReel && <VimeoPlayer onClose={this.onCloseReel} />}
         <Wrapper innerRef={this.containerEl}>
           <Page background={COLORS.wash}>
-            <Container>
+            <HeroContainer>
               <div>
                 <FlexCenter>
                   <div>
@@ -124,7 +128,14 @@ class Home extends React.Component<Props, State> {
                   <Gallery />
                 </div>
               )}
-            </Container>
+            </HeroContainer>
+          </Page>
+          <Page background={COLORS.washDark}>
+            <FlexCenter>
+              <Container>
+                <BrandHeading brandFont>Gallery</BrandHeading>
+              </Container>
+            </FlexCenter>
           </Page>
         </Wrapper>
       </React.Fragment>

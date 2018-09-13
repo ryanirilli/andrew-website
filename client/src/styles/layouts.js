@@ -51,6 +51,7 @@ const pageProps = ({ background }) => css`
 export const Page = styled("div")`
   width: 100vw;
   height: 100vh;
+  overflow: auto;
   ${pageProps};
 `;
 

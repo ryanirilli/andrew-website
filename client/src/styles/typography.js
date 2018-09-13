@@ -12,7 +12,8 @@ import COLORS from "../styles/colors";
 type HeadingProps = {
   flush?: boolean,
   light?: boolean,
-  uppercase?: boolean
+  uppercase?: boolean,
+  brandFont?: boolean
 };
 
 const headingMarginTopDefault = `${BASE_SPACING_UNIT * 10}px`;
@@ -23,11 +24,15 @@ const headingProps = (props: HeadingProps): string => css`
   margin-bottom: ${props.flush ? 0 : headingMarginBottomDefault};
   font-weight: ${props.light ? 400 : 800};
   text-transform: ${props.uppercase ? "uppercase" : "none"};
+  font-family: ${props.brandFont ? "eloquent-jf-pro" : "inherit"};
+  letter-spacing: 2px;
 `;
 
 const headingBase = css`
   line-height: 1.1;
   margin: ${headingMarginTopDefault} 0 ${headingMarginBottomDefault} 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 `;
 
 const h1 = css`
@@ -102,6 +107,13 @@ export const H3 = styled("h3")`
 export const H4 = styled("h4")`
   ${h4};
   ${headingProps};
+`;
+
+export const BrandHeading = styled(H1)`
+  color: #d2ccc2;
+  text-shadow: 1px 1px white;
+  ${MQ.small(css({ fontSize: "1.953rem" }))};
+  ${MQ.large(css({ fontSize: "5rem" }))};
 `;
 
 const pProps = props => css`
