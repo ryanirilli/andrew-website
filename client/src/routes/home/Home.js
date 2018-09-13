@@ -10,7 +10,6 @@ import anime from "animejs";
 
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
-
 import { Page, Container, FlexCenter } from "../../styles/layouts";
 import { BrandHeading, H4 } from "../../styles/typography";
 
@@ -96,7 +95,7 @@ class Home extends React.Component<Props, State> {
     const { breakpoint } = this.props;
     return (
       <React.Fragment>
-        <TopNav />
+        <TopNav onNav={this.animateOut} />
         {this.state.isShowingReel && <VimeoPlayer onClose={this.onCloseReel} />}
         <Wrapper innerRef={this.containerEl}>
           <Page background={COLORS.wash}>
@@ -181,7 +180,7 @@ class Home extends React.Component<Props, State> {
     }).finished;
   }
 
-  async animateOut(route: string) {
+  animateOut = async (path: string) => {
     anime({
       targets: this.heroEl.current,
       translateY: [0, "20px"],
@@ -204,8 +203,8 @@ class Home extends React.Component<Props, State> {
       opacity: [1, 0],
       duration: 2000
     }).finished;
-    this.props.history.push(route);
-  }
+    this.props.history.push(path);
+  };
 }
 
 const mapStateToProps = state => ({

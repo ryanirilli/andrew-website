@@ -18,7 +18,7 @@ const Container = styled("div")`
 `;
 
 const Play = styled("svg")`
-  width: 20px;
+  width: 12px;
   margin: 0 4px 0 0;
 `;
 

@@ -33,9 +33,8 @@ export default class VimeoPlayer extends React.Component<Props> {
   vidContainerEl: { current: null | HTMLDivElement } = React.createRef();
   async componentDidMount() {
     const el = this.containerEl.current;
-    const vidEl = this.vidContainerEl.current;
 
-    if (!el || !vidEl) {
+    if (!el) {
       return;
     }
     await anime({
@@ -44,6 +43,12 @@ export default class VimeoPlayer extends React.Component<Props> {
       duration: 2000,
       easing: "easeInOutQuint"
     }).finished;
+
+    const vidEl = this.vidContainerEl.current;
+
+    if (!vidEl) {
+      return;
+    }
 
     const player = new Player(id, {
       id,
