@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import anime from "animejs";
 
+import { fetchVideos } from "../../actions/app.actions";
+
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
 import { Page, Container, FlexCenter } from "../../styles/layouts";
@@ -15,7 +17,7 @@ import { BrandHeading, H4 } from "../../styles/typography";
 
 import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
-import TopNav from "./../../components/TopNav";
+import Videos from "./../../components/Videos";
 
 const Gallery = Loadable({
   loader: () => import("./../../components/PhotoGallery"),
@@ -44,7 +46,7 @@ const HeroContainer = styled("div")`
 
 const Hero = styled("div")`
   text-align: center;
-  color: #42351d;
+  color: ${COLORS.brandSecondary};
 `;
 
 const Name = styled(H4)`
@@ -59,7 +61,6 @@ const Tags = styled("ul")`
   list-style: none;
   padding: 0;
   margin-bottom: 20px;
-  color: #b3ada2;
   > li {
     margin-top: 0;
     :not(:first-child) {
@@ -71,7 +72,9 @@ const Tags = styled("ul")`
 
 type Props = {
   breakpoint: string,
-  history: RouterHistory
+  history: RouterHistory,
+  fetchVideos: () => void,
+  videos: ?Object
 };
 
 type State = {
@@ -89,13 +92,15 @@ class Home extends React.Component<Props, State> {
 
   componentDidMount() {
     this.animateIn();
+    if (!this.props.videos) {
+      this.props.fetchVideos();
+    }
   }
 
   render() {
-    const { breakpoint } = this.props;
+    const { breakpoint, videos } = this.props;
     return (
       <React.Fragment>
-        <TopNav onNav={this.animateOut} />
         {this.state.isShowingReel && <VimeoPlayer onClose={this.onCloseReel} />}
         <Wrapper innerRef={this.containerEl}>
           <Page background={COLORS.wash}>
@@ -129,41 +134,41 @@ class Home extends React.Component<Props, State> {
               )}
             </HeroContainer>
           </Page>
-          <Page background={COLORS.washDark}>
-            <FlexCenter>
-              <Container>
-                <BrandHeading brandFont>Gallery</BrandHeading>
-              </Container>
-            </FlexCenter>
-          </Page>
+          <div style={{ background: "black" }}>
+            <Container>
+              {videos && <Videos type="directing" videos={videos.directing} />}
+            </Container>
+          </div>
+
+          <Page />
         </Wrapper>
       </React.Fragment>
     );
   }
 
-  onCloseReel = async () => {
+  onCloseReel = () => {
     this.setState({ isShowingReel: false });
-    await anime({
+    anime({
       targets: this.containerEl.current,
       scale: [0.75, 1],
       easing: "easeInOutQuint",
       opacity: [0.5, 1],
       duration: 1000
-    }).finished;
+    });
   };
 
-  playReel = async () => {
+  playReel = () => {
     this.setState({ isShowingReel: true });
-    await anime({
+    anime({
       targets: this.containerEl.current,
       scale: [1, 0.75],
       easing: "easeInOutQuint",
       opacity: [1, 0.5],
       duration: 1000
-    }).finished;
+    });
   };
 
-  async animateIn() {
+  animateIn() {
     anime({
       targets: this.heroEl.current,
       translateY: ["20px", 0],
@@ -171,13 +176,13 @@ class Home extends React.Component<Props, State> {
       opacity: [0, 1],
       duration: 2000
     });
-    await anime({
+    anime({
       targets: this.containerEl.current,
       translateY: ["20px", 0],
       easing: "easeInOutQuint",
       opacity: [0, 1],
       duration: 2000
-    }).finished;
+    });
   }
 
   animateOut = async (path: string) => {
@@ -204,11 +209,17 @@ class Home extends React.Component<Props, State> {
       duration: 2000
     }).finished;
     this.props.history.push(path);
+    return null;
   };
 }
 
 const mapStateToProps = state => ({
-  breakpoint: state.app.breakpoint
+  breakpoint: state.app.breakpoint,
+  videos: state.app.videos
 });
 
-export default connect(mapStateToProps)(withRouter(Home));
+const mapDispatchToProps = {
+  fetchVideos
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
