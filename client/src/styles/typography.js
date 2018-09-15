@@ -24,8 +24,7 @@ const headingProps = (props: HeadingProps): string => css`
   margin-bottom: ${props.flush ? 0 : headingMarginBottomDefault};
   font-weight: ${props.light ? 400 : 800};
   text-transform: ${props.uppercase ? "uppercase" : "none"};
-  font-family: ${props.brandFont ? "eloquent-jf-pro" : "inherit"};
-  letter-spacing: 2px;
+  font-family: "adelle-sans";
 `;
 
 const headingBase = css`
@@ -63,6 +62,8 @@ const p = css`
   margin: 0;
   line-height: 1.5;
   color: ${COLORS.text};
+  font-family: "adelle-sans";
+  font-weight: 100;
   ${MQ.small(
     css`
       font-size: 1rem;
@@ -109,9 +110,11 @@ export const H4 = styled("h4")`
   ${headingProps};
 `;
 
+const brandHeadingProps = props => css``;
+
 export const BrandHeading = styled(H1)`
-  color: #d2ccc2;
-  text-shadow: 1px 1px white;
+  ${brandHeadingProps}
+  margin-bottom: ${BASE_SPACING_UNIT * 10}px; 
   ${MQ.small(css({ fontSize: "1.953rem" }))};
   ${MQ.large(css({ fontSize: "5rem" }))};
 `;
@@ -119,8 +122,8 @@ export const BrandHeading = styled(H1)`
 const pProps = props => css`
   ${MQ.small(
     css`
-      font-weight: ${props.bold ? 600 : "normal"};
-      font-size: ${props.small ? "1rem" : props.tiny ? "0.8rem" : "1.3125rem"};
+      font-weight: ${props.bold ? 600 : 100};
+      font-size: ${props.small ? "1rem" : props.tiny ? "0.8rem" : "1rem"};
       padding-bottom: ${props.flush ? 0 : `${BASE_SPACING_UNIT * 2}px`};
       line-height: ${props.flush ? 1.25 : 1.5};
     `
@@ -135,13 +138,4 @@ const pProps = props => css`
 export const P = styled("p")`
   ${p};
   ${pProps};
-`;
-
-injectGlobal`   
-  h1 {${h1}}  
-  h2 {${h2}}
-  h3 {${h3}}
-  h4 {${h3}}
-  p {${p}}
-  blockquote {${blockquote}}
 `;

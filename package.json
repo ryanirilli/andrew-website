@@ -10,8 +10,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "faker": "^4.1.0",
-    "lodash.shuffle": "^4.2.0"
+    "express": "^4.16.3"
   }
 }

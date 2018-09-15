@@ -1,12 +1,22 @@
 import styled from "react-emotion";
 import { css } from "emotion";
-import { MAX_WIDTH, BASE_SPACING_UNIT, MQ } from "./style-config";
+import { MAX_WIDTH, MEDIUM_WIDTH, BASE_SPACING_UNIT, MQ } from "./style-config";
 import COLORS from "./colors";
 
+const containerProps = props => {
+  let maxWidth = MAX_WIDTH;
+  if (props.medium) {
+    maxWidth = MEDIUM_WIDTH;
+  }
+  return css`
+    max-width: ${maxWidth}px;
+  `;
+};
+
 export const Container = styled("div")`
-  max-width: ${MAX_WIDTH}px;
   position: relative;
   margin: 0 auto;
+  ${containerProps};
 `;
 
 const ratioProps = props => css`

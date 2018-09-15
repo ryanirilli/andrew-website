@@ -13,7 +13,7 @@ import { fetchVideos } from "../../actions/app.actions";
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
 import { Page, Container, FlexCenter } from "../../styles/layouts";
-import { BrandHeading, H4 } from "../../styles/typography";
+import { P, H4 } from "../../styles/typography";
 
 import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
@@ -44,30 +44,22 @@ const HeroContainer = styled("div")`
   `)};
 `;
 
-const Hero = styled("div")`
+const LogoContainer = styled("div")`
   text-align: center;
-  color: ${COLORS.brandSecondary};
+`;
+
+const Hero = styled("div")`
+  color: ${COLORS.brandPrimary};
 `;
 
 const Name = styled(H4)`
   margin-bottom: 0;
   letter-spacing: ${BASE_SPACING_UNIT * 2}px;
-  padding: 0 12px 12px 12px;
-  border-bottom: 1px solid;
+  padding: 0 0 12px 0;
 `;
 
-const Tags = styled("ul")`
-  display: inline-flex;
-  list-style: none;
-  padding: 0;
-  margin-bottom: 20px;
-  > li {
-    margin-top: 0;
-    :not(:first-child) {
-      margin-left: 24px;
-      list-style: disc;
-    }
-  }
+const AboutText = styled(P)`
+  max-width: 550px;
 `;
 
 type Props = {
@@ -109,17 +101,19 @@ class Home extends React.Component<Props, State> {
                 <FlexCenter>
                   <div>
                     <Hero innerRef={this.heroEl}>
-                      <Logo color={COLORS.brand} />
-                      <Name light uppercase>
+                      <LogoContainer>
+                        <Logo color={COLORS.activeColor} />
+                      </LogoContainer>
+                      <Name brandFont light uppercase>
                         Andrew Franks
                       </Name>
-                      <div>
-                        <Tags>
-                          <li>Director</li>
-                          <li>Cinematographer</li>
-                          <li>Editor</li>
-                        </Tags>
-                      </div>
+                      <AboutText>
+                        is a director, editor and cinematographer living in
+                        Seattle Washington. His work has been featured in
+                        numerous film festivals around the nation. He has
+                        dedicated his career to uncovering some of the most
+                        compelling stories never told.
+                      </AboutText>
                       <div onClick={this.playReel}>
                         <Reel isShowingReel={this.state.isShowingReel} />
                       </div>
@@ -134,13 +128,15 @@ class Home extends React.Component<Props, State> {
               )}
             </HeroContainer>
           </Page>
-          <div style={{ background: "black" }}>
-            <Container>
-              {videos && <Videos type="directing" videos={videos.directing} />}
-            </Container>
+          <div
+            style={{
+              background: "#f1f0f0"
+            }}
+          >
+            {videos && <Videos type="directing" videos={videos.directing} />}
           </div>
 
-          <Page />
+          <Page background={"#272421"} />
         </Wrapper>
       </React.Fragment>
     );

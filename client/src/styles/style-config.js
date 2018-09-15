@@ -4,6 +4,7 @@ import { css } from "emotion";
 
 export const BASE_SPACING_UNIT = 4;
 export const MAX_WIDTH = 1440;
+export const MEDIUM_WIDTH = 800;
 
 const BREAKPOINTS = {
   small: 0,

@@ -24,7 +24,7 @@ app.get(`${BASE_PATH}/videos`, async (req, res) => {
         headers: {
           Authorization:
             "basic " +
-            Buffer.from(vimeoClientId + ":" + vimeoClientSecret).toString(
+            Buffer.from(`${vimeoClientId}:${vimeoClientSecret}`).toString(
               "base64"
             )
         },
@@ -40,8 +40,8 @@ app.get(`${BASE_PATH}/videos`, async (req, res) => {
 
   const token = tokenData.data.access_token;
   const path = `${directingPath}/?access_token=${token}`;
-  const vimeoRes = await axios.get(path);
-  res.json({ directing: vimeoRes.data });
+  const directing = await axios.get(path);
+  res.json({ directing: directing.data });
 });
 
 app.get("*", (req, res) => {
