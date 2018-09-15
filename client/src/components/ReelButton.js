@@ -12,9 +12,7 @@ const Container = styled("div")`
   border-radius: 100px;
   cursor: pointer;
   font-weight: 100;
-  transition: box-shadow 500ms linear;
-  will-change: box-shadow;
-  box-shadow: 0 0 0 black;
+  margin-top: 16px;
 `;
 
 const Play = styled("svg")`

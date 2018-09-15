@@ -7,25 +7,31 @@ import anime from "animejs";
 import moment from "moment";
 import COLORS from "../styles/colors";
 import { RatioBox, RatioBoxContent } from "../styles/layouts";
+import { Pad } from "../styles/spacing";
 import { H2, H3 } from "../styles/typography";
-
+import { MQ } from "../styles/style-config";
 const Container = styled("div")`
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  column-gap: 24px;
   iframe {
     display: block;
   }
+  ${MQ.small(css`
+    grid-template-columns: 1fr;
+  `)} ${MQ.medium(css`
+    grid-template-columns: 2fr 1fr;
+  `)};
 `;
 
 const vidLinkProps = props => css`
   color: ${props.isActive ? COLORS.activeColor : "#adadad"};
+  font-weight: ${props.isActive ? 800 : 100};
 `;
 
 const VidLink = styled("p")`
   margin: 0 0 16px 0;
   font-size: 16px;
   cursor: pointer;
+  font-family: "adelle-sans";
   ${vidLinkProps};
 `;
 
@@ -66,7 +72,7 @@ const PreviewTitle = styled("div")`
     position: absolute;
     width: 75px;
     height: 6px;
-    background: ${COLORS.activeColor};
+    background: white;
     top: 0;
     left: 0;
   }
@@ -96,7 +102,7 @@ const Play = styled("svg")`
 `;
 
 const List = styled("div")`
-  padding-top: 40px;
+  margin-top: 16px;
 `;
 
 type Props = {
@@ -191,7 +197,10 @@ export default class Videos extends React.Component<Props, State> {
               </RatioBoxContent>
             </RatioBox>
           </div>
-          <List>{videos.data.map(this.renderVideo)}</List>
+          <Pad>
+            <H2 flush>Directing</H2>
+            <List>{videos.data.map(this.renderVideo)}</List>
+          </Pad>
         </Container>
       </React.Fragment>
     );

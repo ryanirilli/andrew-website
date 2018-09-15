@@ -14,10 +14,12 @@ import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
 import { Page, Container, FlexCenter } from "../../styles/layouts";
 import { P, H4 } from "../../styles/typography";
+import { Pad } from "../../styles/spacing";
 
 import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
 import Videos from "./../../components/Videos";
+import TextReveal from "./../../components/TextReveal";
 
 const Gallery = Loadable({
   loader: () => import("./../../components/PhotoGallery"),
@@ -36,16 +38,20 @@ const Wrapper = styled("div")`
 const HeroContainer = styled("div")`
   display: grid;
   height: 100%;
+  text-align: center;
   ${MQ.small(css`
     grid-template-columns: 1fr;
   `)};
   ${MQ.medium(css`
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
   `)};
 `;
 
+const LeftSide = styled("div")``;
+
 const LogoContainer = styled("div")`
   text-align: center;
+  margin-bottom: 24px;
 `;
 
 const Hero = styled("div")`
@@ -53,7 +59,7 @@ const Hero = styled("div")`
 `;
 
 const Name = styled(H4)`
-  margin-bottom: 0;
+  margin: 0;
   letter-spacing: ${BASE_SPACING_UNIT * 2}px;
   padding: 0 0 12px 0;
 `;
@@ -97,30 +103,32 @@ class Home extends React.Component<Props, State> {
         <Wrapper innerRef={this.containerEl}>
           <Page background={COLORS.wash}>
             <HeroContainer>
-              <div>
+              <LeftSide>
                 <FlexCenter>
-                  <div>
+                  <Pad>
                     <Hero innerRef={this.heroEl}>
                       <LogoContainer>
                         <Logo color={COLORS.activeColor} />
                       </LogoContainer>
-                      <Name brandFont light uppercase>
-                        Andrew Franks
-                      </Name>
-                      <AboutText>
-                        is a director, editor and cinematographer living in
-                        Seattle Washington. His work has been featured in
-                        numerous film festivals around the nation. He has
-                        dedicated his career to uncovering some of the most
-                        compelling stories never told.
-                      </AboutText>
+                      <TextReveal>
+                        <Name brandFont light uppercase>
+                          Andrew Franks
+                        </Name>
+                      </TextReveal>
+                      {/*<AboutText>*/}
+                      {/*is a director, editor and cinematographer living in*/}
+                      {/*Seattle Washington. His work has been featured in*/}
+                      {/*numerous film festivals around the nation. He has*/}
+                      {/*dedicated his career to uncovering some of the most*/}
+                      {/*compelling stories never told.*/}
+                      {/*</AboutText>*/}
                       <div onClick={this.playReel}>
                         <Reel isShowingReel={this.state.isShowingReel} />
                       </div>
                     </Hero>
-                  </div>
+                  </Pad>
                 </FlexCenter>
-              </div>
+              </LeftSide>
               {breakpoint !== "small" && (
                 <div ref={this.galleryEl}>
                   <Gallery />

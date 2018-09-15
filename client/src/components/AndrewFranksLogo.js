@@ -10,8 +10,7 @@ export default class AndrewFranksLogo extends React.Component<Props> {
     const color = this.props.color || "black";
     return (
       <svg
-        width="193"
-        height="145"
+        width="150px"
         viewBox="0 0 193 145"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

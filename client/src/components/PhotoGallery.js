@@ -18,7 +18,7 @@ export default class PhotoGallery extends React.Component<Props> {
         <Container
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1522711311445-15860d7c6d9d')"
+              "url('https://images.unsplash.com/photo-1512101703403-e0bcb5dd374b')"
           }}
         />
       </FlexCenter>

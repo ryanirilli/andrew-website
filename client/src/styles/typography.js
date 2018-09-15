@@ -22,7 +22,7 @@ const headingMarginBottomDefault = `${BASE_SPACING_UNIT * 4}px`;
 const headingProps = (props: HeadingProps): string => css`
   margin-top: ${props.flush ? 0 : headingMarginTopDefault};
   margin-bottom: ${props.flush ? 0 : headingMarginBottomDefault};
-  font-weight: ${props.light ? 400 : 800};
+  font-weight: ${props.light ? 100 : 800};
   text-transform: ${props.uppercase ? "uppercase" : "none"};
   font-family: "adelle-sans";
 `;
