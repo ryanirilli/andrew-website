@@ -22,9 +22,14 @@ const Container = styled("div")`
   `)};
 `;
 
+const LeftSide = styled("div")`
+  background: black;
+  display: grid;
+  align-items: center;
+`;
+
 const vidLinkProps = props => css`
   color: ${props.isActive ? COLORS.activeColor : "#adadad"};
-  font-weight: ${props.isActive ? 800 : 100};
 `;
 
 const VidLink = styled("p")`
@@ -33,6 +38,9 @@ const VidLink = styled("p")`
   cursor: pointer;
   font-family: "adelle-sans";
   ${vidLinkProps};
+  :hover {
+    color: ${COLORS.activeColor};
+  }
 `;
 
 const PlayerContainer = styled("div")`
@@ -149,7 +157,7 @@ export default class Videos extends React.Component<Props, State> {
     const player = new Player("player", {
       id,
       width: el.offsetWidth,
-      autoplay: true
+      autoplay: false
     });
     this.player = player;
   }
@@ -159,7 +167,7 @@ export default class Videos extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Container>
-          <div>
+          <LeftSide>
             <RatioBox
               antecedent={16}
               consequent={9}
@@ -196,7 +204,7 @@ export default class Videos extends React.Component<Props, State> {
                 )}
               </RatioBoxContent>
             </RatioBox>
-          </div>
+          </LeftSide>
           <Pad>
             <H2 flush>Directing</H2>
             <List>{videos.data.map(this.renderVideo)}</List>

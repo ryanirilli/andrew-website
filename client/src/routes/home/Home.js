@@ -47,7 +47,9 @@ const HeroContainer = styled("div")`
   `)};
 `;
 
-const LeftSide = styled("div")``;
+const RightSide = styled("div")`
+  background: ${COLORS.washDark};
+`;
 
 const LogoContainer = styled("div")`
   text-align: center;
@@ -66,6 +68,7 @@ const Name = styled(H4)`
 
 const AboutText = styled(P)`
   max-width: 550px;
+  text-align: left;
 `;
 
 type Props = {
@@ -103,7 +106,7 @@ class Home extends React.Component<Props, State> {
         <Wrapper innerRef={this.containerEl}>
           <Page background={COLORS.wash}>
             <HeroContainer>
-              <LeftSide>
+              <div>
                 <FlexCenter>
                   <Pad>
                     <Hero innerRef={this.heroEl}>
@@ -115,24 +118,24 @@ class Home extends React.Component<Props, State> {
                           Andrew Franks
                         </Name>
                       </TextReveal>
-                      {/*<AboutText>*/}
-                      {/*is a director, editor and cinematographer living in*/}
-                      {/*Seattle Washington. His work has been featured in*/}
-                      {/*numerous film festivals around the nation. He has*/}
-                      {/*dedicated his career to uncovering some of the most*/}
-                      {/*compelling stories never told.*/}
-                      {/*</AboutText>*/}
+                      <AboutText>
+                        is a director, editor and cinematographer living in
+                        Seattle Washington. His work has been featured in
+                        numerous film festivals around the nation. He has
+                        dedicated his career to uncovering some of the most
+                        compelling stories never told.
+                      </AboutText>
                       <div onClick={this.playReel}>
                         <Reel isShowingReel={this.state.isShowingReel} />
                       </div>
                     </Hero>
                   </Pad>
                 </FlexCenter>
-              </LeftSide>
+              </div>
               {breakpoint !== "small" && (
-                <div ref={this.galleryEl}>
+                <RightSide innerRef={this.galleryEl}>
                   <Gallery />
-                </div>
+                </RightSide>
               )}
             </HeroContainer>
           </Page>

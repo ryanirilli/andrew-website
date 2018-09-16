@@ -5,6 +5,10 @@ import { css } from "emotion";
 import styled from "react-emotion";
 import { connect } from "react-redux";
 import anime from "animejs";
+import {
+  requestInterval,
+  clearRequestInterval
+} from "../utils/request-interval";
 import { fetchPhotos } from "../actions/app.actions";
 
 const Container = styled("div")``;
@@ -15,6 +19,7 @@ const image = css`
   background-size: cover;
   background-repeat: no-repeat;
   position: absolute;
+  opacity: 0;
 `;
 
 const CurImage = styled("div")`
@@ -55,19 +60,37 @@ export class PhotoGallery extends React.Component<Props, State> {
     }
   }
 
-  componentDidUpdate() {
-    if (!this.state.isAnimating && this.state.curImg != null) {
-      this.setState(
-        { isAnimating: true, interval: setInterval(this.animate, 4000) },
-        () => {}
-      );
+  async componentDidUpdate() {
+    const { curImg, isAnimating } = this.state;
+    const { photos } = this.props;
+    const curEl = this.curEl.current;
+    const nextEl = this.nextEl.current;
+    if (
+      !isAnimating &&
+      curEl != null &&
+      nextEl != null &&
+      photos != null &&
+      curImg != null
+    ) {
+      await PhotoGallery.preloadImg(photos[curImg]);
+      await anime({
+        targets: curEl,
+        opacity: [0, 1],
+        duration: 2000,
+        easing: "easeInOutQuart"
+      }).finished;
+      nextEl.style.opacity = "1";
+      this.setState({
+        isAnimating: true,
+        interval: requestInterval(this.animate, 4000)
+      });
     }
   }
 
   componentWillUnmount() {
     const { interval } = this.state;
     if (interval) {
-      clearInterval(interval);
+      clearRequestInterval(interval);
     }
   }
 
@@ -133,11 +156,11 @@ export class PhotoGallery extends React.Component<Props, State> {
     await PhotoGallery.preloadImg(photos[nextImg]);
     this.setState(
       {
-        curImg
+        curImg,
+        nextImg
       },
       () => {
         curEl.style.opacity = "1";
-        this.setState({ nextImg });
       }
     );
   };
