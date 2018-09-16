@@ -2,14 +2,26 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const axios = require("axios");
+const fetch = require("isomorphic-fetch");
+const Dropbox = require("dropbox").Dropbox;
 dotenv.config();
 
 const app = express();
 const BASE_PATH = "/api/v1";
+
+// Vimeo
 const directingPath =
   "https://api.vimeo.com/users/andrewfranks/albums/5410730/videos";
 const vimeoClientId = process.env.VIMEO_CLIENT_ID;
 const vimeoClientSecret = process.env.VIMEO_CLIENT_SECRET;
+
+// Dropbox
+const dropboxToken = process.env.DROPBOX_TOKEN;
+console.log("TOKEN: ", dropboxToken);
+const dbx = new Dropbox({
+  accessToken: dropboxToken,
+  fetch
+});
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -42,6 +54,20 @@ app.get(`${BASE_PATH}/videos`, async (req, res) => {
   const path = `${directingPath}/?access_token=${token}`;
   const directing = await axios.get(path);
   res.json({ directing: directing.data });
+});
+
+app.get(`${BASE_PATH}/photos`, async (req, res) => {
+  const paths = await dbx.filesListFolder({ path: "/photos" });
+  let data;
+  try {
+    const promises = paths.entries.map(item =>
+      dbx.filesGetTemporaryLink({ path: item.path_lower })
+    );
+    data = await Promise.all(promises);
+  } catch (e) {
+    console.log("ERR: ", e);
+  }
+  res.json({ photos: data.map(item => item.link) });
 });
 
 app.get("*", (req, res) => {
