@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import { FlexCenter } from "../styles/layouts";
-import { css } from "emotion";
 import styled from "react-emotion";
 import { connect } from "react-redux";
 import anime from "animejs";
@@ -11,25 +10,16 @@ import {
 } from "../utils/request-interval";
 import { fetchPhotos } from "../actions/app.actions";
 
-const Container = styled("div")``;
+let curImg = 0;
+let nextImg = 1;
+let isPreloading = false;
 
-const image = css`
+const Image = styled("div")`
   width: 100%;
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   position: absolute;
-  opacity: 0;
-`;
-
-const CurImage = styled("div")`
-  ${image};
-  z-index: 1;
-`;
-
-const NextImage = styled("div")`
-  ${image};
-  z-index: 0;
 `;
 
 type Props = {
@@ -39,18 +29,13 @@ type Props = {
 
 type State = {
   isAnimating: boolean,
-  curImg: ?number,
-  nextImg: ?number,
   interval: ?any
 };
 
 export class PhotoGallery extends React.Component<Props, State> {
-  curEl: { current: null | HTMLDivElement } = React.createRef();
-  nextEl: { current: null | HTMLDivElement } = React.createRef();
+  imagesContainerEl: { current: null | HTMLDivElement } = React.createRef();
   state: State = {
     isAnimating: false,
-    curImg: null,
-    nextImg: null,
     interval: null
   };
 
@@ -61,25 +46,22 @@ export class PhotoGallery extends React.Component<Props, State> {
   }
 
   async componentDidUpdate() {
-    const { curImg, isAnimating } = this.state;
+    const { isAnimating } = this.state;
     const { photos } = this.props;
-    const curEl = this.curEl.current;
-    const nextEl = this.nextEl.current;
-    if (
-      !isAnimating &&
-      curEl != null &&
-      nextEl != null &&
-      photos != null &&
-      curImg != null
-    ) {
+    const imagesContainerEl = this.imagesContainerEl.current;
+    if (!isAnimating && photos != null && imagesContainerEl != null) {
       await PhotoGallery.preloadImg(photos[curImg]);
+      const el = imagesContainerEl.childNodes[curImg];
+      // $FlowFixMe
+      el.style.backgroundImage = `url(${photos[curImg]})`;
+      // $FlowFixMe
+      el.style.opacity = "0";
       await anime({
-        targets: curEl,
+        targets: el,
         opacity: [0, 1],
         duration: 2000,
         easing: "easeInOutQuart"
       }).finished;
-      nextEl.style.opacity = "1";
       this.setState({
         isAnimating: true,
         interval: requestInterval(this.animate, 4000)
@@ -94,44 +76,28 @@ export class PhotoGallery extends React.Component<Props, State> {
     }
   }
 
-  static getDerivedStateFromProps(nextProps: Props, nextState: State): State {
-    if (nextProps.photos && nextState.curImg == null) {
-      return {
-        ...nextState,
-        curImg: 0,
-        nextImg: 1
-      };
-    }
-    return nextState;
-  }
-
   render() {
     const { photos } = this.props;
-    const { curImg, nextImg } = this.state;
-    if (!photos || curImg == null || !nextImg == null) {
+    if (!photos) {
       return null;
     }
     return (
-      <FlexCenter>
-        <CurImage
-          innerRef={this.curEl}
-          style={{
-            backgroundImage: `url('${photos[curImg]}')`
-          }}
-        />
-        <NextImage
-          innerRef={this.nextEl}
-          style={{
-            backgroundImage: `url('${photos[nextImg]}')`
-          }}
-        />
+      <FlexCenter innerRef={this.imagesContainerEl}>
+        {photos.map((url, i) => (
+          <Image
+            key={i}
+            style={{
+              zIndex: photos.length - i
+            }}
+          />
+        ))}
       </FlexCenter>
     );
   }
 
   static preloadImg(path: string): Promise<void> {
     return new Promise(resolve => {
-      const img = new Image();
+      const img = document.createElement("img");
       img.src = path;
       img.onload = resolve;
     });
@@ -139,30 +105,39 @@ export class PhotoGallery extends React.Component<Props, State> {
 
   animate = async () => {
     const { photos } = this.props;
-    const curEl = this.curEl.current;
-    const nextEl = this.nextEl.current;
-    if (curEl == null || nextEl == null || !photos) {
+    const imagesContainerEl = this.imagesContainerEl.current;
+    if (isPreloading || !photos || !imagesContainerEl) {
       return;
     }
-    await anime({
-      targets: curEl,
-      opacity: [1, 0],
-      duration: 2000,
-      easing: "easeInOutQuart"
-    }).finished;
-    const curImg = this.state.nextImg;
-    const nextImg =
-      this.state.nextImg === photos.length - 1 ? 0 : this.state.nextImg + 1;
+    isPreloading = true;
     await PhotoGallery.preloadImg(photos[nextImg]);
-    this.setState(
-      {
-        curImg,
-        nextImg
-      },
-      () => {
-        curEl.style.opacity = "1";
-      }
-    );
+    isPreloading = false;
+    // $FlowFixMe
+    imagesContainerEl.childNodes[nextImg].style.backgroundImage = `url(${
+      photos[nextImg]
+    })`;
+    const el = imagesContainerEl.childNodes[curImg];
+    if (nextImg === 0) {
+      await anime({
+        targets: imagesContainerEl.childNodes[0],
+        opacity: [0, 1],
+        duration: 2000,
+        easing: "easeInOutQuart"
+      }).finished;
+      photos.forEach((url, i) => {
+        // $FlowFixMe
+        imagesContainerEl.childNodes[i].style.opacity = "1";
+      });
+    } else {
+      await anime({
+        targets: el,
+        opacity: [1, 0],
+        duration: 2000,
+        easing: "easeInOutQuart"
+      }).finished;
+    }
+    curImg = nextImg;
+    nextImg = nextImg === photos.length - 1 ? 0 : nextImg + 1;
   };
 }
 

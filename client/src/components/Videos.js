@@ -228,7 +228,7 @@ export default class Videos extends React.Component<Props, State> {
 
   static preloadImg(path: string): Promise<void> {
     return new Promise(resolve => {
-      const img = new Image();
+      const img = document.createElement("img");
       img.src = path;
       img.onload = resolve;
     });
