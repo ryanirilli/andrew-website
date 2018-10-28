@@ -64,6 +64,7 @@ const p = css`
   color: ${COLORS.text};
   font-family: "adelle-sans";
   font-weight: 100;
+  letter-spacing: 1px;
   ${MQ.small(
     css`
       font-size: 1rem;

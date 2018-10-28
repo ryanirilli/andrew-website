@@ -161,6 +161,7 @@ export default class Videos extends React.Component<Props, State> {
     });
     this.player = player;
   }
+
   render() {
     const { currentVid } = this.state;
     const { videos } = this.props;
@@ -181,6 +182,7 @@ export default class Videos extends React.Component<Props, State> {
                     onClick={this.playCurrentVid}
                   >
                     <img
+                      alt={currentVid.name}
                       ref={this.previewImgEl}
                       src={currentVid.pictures.sizes[4].link}
                     />

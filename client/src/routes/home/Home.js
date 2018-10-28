@@ -12,7 +12,7 @@ import { fetchVideos } from "../../actions/app.actions";
 
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
-import { Page, Container, FlexCenter } from "../../styles/layouts";
+import { Page, FlexCenter } from "../../styles/layouts";
 import { P, H4 } from "../../styles/typography";
 import { Pad } from "../../styles/spacing";
 
@@ -20,6 +20,7 @@ import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
 import Videos from "./../../components/Videos";
 import TextReveal from "./../../components/TextReveal";
+import Bio from "./../../components/Bio";
 
 const Gallery = Loadable({
   loader: () => import("./../../components/PhotoGallery"),
@@ -63,12 +64,14 @@ const Hero = styled("div")`
 const Name = styled(H4)`
   margin: 0;
   letter-spacing: ${BASE_SPACING_UNIT * 2}px;
-  padding: 0 0 12px 0;
+  padding: 0 0 ${BASE_SPACING_UNIT * 2}px 0;
 `;
 
 const AboutText = styled(P)`
+  padding-top: ${BASE_SPACING_UNIT * 2}px;
+  border-top: 1px solid;
   max-width: 550px;
-  text-align: left;
+  text-align: center;
 `;
 
 type Props = {
@@ -119,11 +122,7 @@ class Home extends React.Component<Props, State> {
                         </Name>
                       </TextReveal>
                       <AboutText>
-                        is a director, editor and cinematographer living in
-                        Seattle Washington. His work has been featured in
-                        numerous film festivals around the nation. He has
-                        dedicated his career to uncovering some of the most
-                        compelling stories never told.
+                        Director &middot; Editor &middot; Cinematographer
                       </AboutText>
                       <div onClick={this.playReel}>
                         <Reel isShowingReel={this.state.isShowingReel} />
@@ -147,7 +146,9 @@ class Home extends React.Component<Props, State> {
             {videos && <Videos type="directing" videos={videos.directing} />}
           </div>
 
-          <Page background={"#272421"} />
+          <div>
+            <Bio />
+          </div>
         </Wrapper>
       </React.Fragment>
     );

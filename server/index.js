@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const axios = require("axios");
 const fetch = require("isomorphic-fetch");
 const Dropbox = require("dropbox").Dropbox;
+const shuffle = require("lodash.shuffle");
 dotenv.config();
 
 const app = express();
@@ -17,7 +18,6 @@ const vimeoClientSecret = process.env.VIMEO_CLIENT_SECRET;
 
 // Dropbox
 const dropboxToken = process.env.DROPBOX_TOKEN;
-console.log("TOKEN: ", dropboxToken);
 const dbx = new Dropbox({
   accessToken: dropboxToken,
   fetch
