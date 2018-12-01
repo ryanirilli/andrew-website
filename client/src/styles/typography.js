@@ -37,25 +37,30 @@ const headingBase = css`
 const h1 = css`
   ${headingBase};
   ${MQ.small(css({ fontSize: "1.953rem" }))};
-  ${MQ.large(css({ fontSize: "2.441rem" }))};
+  ${MQ.medium(css({ fontSize: "2.441rem" }))};
 `;
 
 const h2 = css`
   ${headingBase};
-  ${MQ.small(css({ fontSize: "1.563rem" }))};
-  ${MQ.large(css({ fontSize: "1.953rem" }))};
+  ${MQ.small(css({ fontSize: "1rem" }))};
+  ${MQ.medium(css({ fontSize: "1.953rem" }))};
+`;
+
+export const H2 = styled("h2")`
+  ${h2};
+  ${headingProps};
 `;
 
 const h3 = css`
   ${headingBase};
-  ${MQ.small(css({ fontSize: "1.25rem" }))};
-  ${MQ.large(css({ fontSize: "1.563rem" }))};
+  ${MQ.small(css({ fontSize: "0.8rem" }))};
+  ${MQ.medium(css({ fontSize: "1.563rem" }))};
 `;
 
 const h4 = css`
   ${headingBase};
   ${MQ.small(css({ fontSize: "1rem" }))};
-  ${MQ.large(css({ fontSize: "1.25rem" }))};
+  ${MQ.medium(css({ fontSize: "1.25rem" }))};
 `;
 
 const p = css`
@@ -93,11 +98,6 @@ const blockquote = css`
 
 export const H1 = styled("h1")`
   ${h1};
-  ${headingProps};
-`;
-
-export const H2 = styled("h2")`
-  ${h2};
   ${headingProps};
 `;
 

@@ -1,16 +1,22 @@
 // @flow
 import React from "react";
 import styled from "react-emotion";
+import { css } from "emotion";
 import SocialIcons from "./SocialIcons";
 import BioImg from "./../images/andrew-bio-pic.jpg";
 
-import { BASE_SPACING_UNIT } from "../styles/style-config";
+import { BASE_SPACING_UNIT, MQ } from "../styles/style-config";
 
 import { P } from "../styles/typography";
 
 const BioContainer = styled("div")`
   display: flex;
   height: 100%;
+  ${MQ.small(css`
+    flex-direction: column-reverse;
+  `)} ${MQ.medium(css`
+    flex-direction: row;
+  `)};
 `;
 
 const BioContentContainer = styled("div")`
@@ -24,12 +30,22 @@ const BioContentContainer = styled("div")`
 
 const BioContent = styled("div")`
   max-width: 500px;
-  padding: ${BASE_SPACING_UNIT * 60}px ${BASE_SPACING_UNIT * 8}px;
+  ${MQ.small(css`
+    padding: ${BASE_SPACING_UNIT * 30}px ${BASE_SPACING_UNIT * 8}px;
+  `)} ${MQ.large(css`
+    padding: ${BASE_SPACING_UNIT * 60}px ${BASE_SPACING_UNIT * 8}px;
+  `)};
 `;
 
 const BioPic = styled("div")`
   background-size: cover;
-  flex-basis: 60%;
+  ${MQ.small(css`
+    flex-basis: 100%;
+    height: 50vh;
+  `)} ${MQ.large(css`
+    flex-basis: 60%;
+    height: auto;
+  `)};
 `;
 
 export default function() {

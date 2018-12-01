@@ -19,6 +19,7 @@ import { Pad } from "../../styles/spacing";
 import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
 import Videos from "./../../components/Videos";
+import VideoGallery from "./../../components/VideoGallery";
 import TextReveal from "./../../components/TextReveal";
 import Bio from "./../../components/Bio";
 
@@ -143,7 +144,7 @@ class Home extends React.Component<Props, State> {
               background: "#f1f0f0"
             }}
           >
-            {videos && <Videos type="directing" videos={videos.directing} />}
+            {videos && <VideoGallery videos={videos} />}
           </div>
 
           <div>
