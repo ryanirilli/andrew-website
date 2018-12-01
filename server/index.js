@@ -53,6 +53,7 @@ app.get(`${BASE_PATH}/videos`, async (req, res) => {
   const token = tokenData.data.access_token;
   const path = `${directingPath}/?access_token=${token}`;
   const directing = await axios.get(path);
+
   res.json({ directing: directing.data });
 });
 

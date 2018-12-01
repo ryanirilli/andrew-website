@@ -59,7 +59,7 @@ const videoContainerProps = props => css`
 `;
 
 const VideoContainer = styled("div")`
-  width: 75vw;
+  width: 40vw;
   flex: 0 0 auto;
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.3);
   position: relative;
