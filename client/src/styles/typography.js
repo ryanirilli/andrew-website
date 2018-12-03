@@ -28,7 +28,7 @@ const headingProps = (props: HeadingProps): string => css`
 `;
 
 const headingBase = css`
-  line-height: 1.1;
+  line-height: 1.3;
   margin: ${headingMarginTopDefault} 0 ${headingMarginBottomDefault} 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

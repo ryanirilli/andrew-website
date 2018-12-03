@@ -8,9 +8,9 @@ import { RatioBox, RatioBoxContent } from "../styles/layouts";
 import { H2, H3 } from "../styles/typography";
 import { Pad } from "../styles/spacing";
 import moment from "moment/moment";
+import anime from "animejs";
 
 const Container = styled("div")`
-  overflow: auto;
   background: black;
   position: relative;
 `;
@@ -81,23 +81,48 @@ const videoPlayerProps = props => css`
   };w
 `;
 
-const VideoPlayer = styled("div")`
+const VideoPlayerContainer = styled("div")`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+`;
+
+const VideoPlayer = styled("div")`
+  position: absolute;
+  top: 0;
+  left: 50%;
+  iframe {
+    transform: translateX(-50%);
+  }
+  width: 100%;
+  max-width: 1080px;
+  height: 100%;
   background: black;
   z-index: 1;
   transition: opacity 1s ease;
-
   ${videoPlayerProps};
+`;
+
+const Close = styled("div")`
+  position: absolute;
+  background: white;
+  top: -50px;
+  right: 50px;
+  z-index: 99;
+  padding: 8px;
 `;
 
 export default class VideoGallery extends React.Component {
   constructor(props: Props) {
     super(props);
   }
+
+  playerContainer = React.createRef();
+  container = React.createRef();
+  containerHeight = null;
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.isPlayingVid && this.state.isPlayingVid) {
@@ -121,7 +146,7 @@ export default class VideoGallery extends React.Component {
     const { isPlayingVid } = this.state;
     const { data } = category;
     return (
-      <Container key={key}>
+      <Container key={key} innerRef={this.container}>
         {isPlayingVid && this.renderPlayer()}
         <VideosContainer>
           {data.map((vid, key) => this.renderVid(vid, key))}
@@ -161,11 +186,17 @@ export default class VideoGallery extends React.Component {
   }
   renderPlayer() {
     return (
-      <VideoPlayer
-        isPlayingVid
-        showPlayer={this.state.showPlayer}
-        id="player"
-      />
+      <React.Fragment>
+        <Close onClick={this.closeVideo}>Close</Close>
+        <VideoPlayerContainer>
+          <VideoPlayer
+            isPlayingVid
+            showPlayer={this.state.showPlayer}
+            innerRef={this.playerContainer}
+            id="player"
+          />
+        </VideoPlayerContainer>
+      </React.Fragment>
     );
   }
   setCurVid(vid) {
@@ -176,13 +207,44 @@ export default class VideoGallery extends React.Component {
   }
   async playVideo() {
     const { currentVid } = this.state;
+    const containerEl = this.container.current;
+    const playerEl = this.playerContainer.current;
     const player = new Player("player", {
       url: currentVid.link,
-      width: window.innerWidth
+      width: playerEl.offsetWidth
     });
+    await player.ready();
+    const containerHeight = containerEl.offsetHeight;
+    const playerHeight = playerEl.firstElementChild.offsetHeight;
+    await anime({
+      targets: containerEl,
+      height: [containerHeight, playerHeight],
+      duration: 1000,
+      easing: "easeInOutQuint"
+    }).finished;
+    this.containerHeight = containerHeight;
     player.play();
     player.on("play", data => {
       this.setState({ showPlayer: true });
     });
   }
+
+  closeVideo = async () => {
+    const playerHeight = this.playerContainer.current.firstElementChild
+      .offsetHeight;
+    const { containerHeight } = this;
+    await anime({
+      targets: this.playerContainer.current.firstElementChild,
+      opacity: [1, 0],
+      duration: 1000,
+      easing: "easeInOutQuint"
+    }).finished;
+    await anime({
+      targets: this.container.current,
+      height: [playerHeight, containerHeight],
+      duration: 1000,
+      easing: "easeInOutQuint"
+    }).finished;
+    this.setState({ showPlayer: false, isPlayingVid: false });
+  };
 }
