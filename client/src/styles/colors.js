@@ -1,6 +1,6 @@
 import Color from "color";
 
-const PRIMARY_BRAND_COLOR = "#3a3835";
+const PRIMARY_BRAND_COLOR = "#162731";
 const SECONDARY_BRAND_COLOR = "#716d66";
 const WASH = "#f7f7f7";
 const WASH_DARK = "#e8ebec;";
@@ -12,5 +12,6 @@ export default {
   wash: WASH,
   washDark: WASH_DARK,
   text: "#777065",
-  activeColor: ACTIVE_COLOR
+  activeColor: ACTIVE_COLOR,
+  white: "white"
 };

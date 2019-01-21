@@ -6,9 +6,9 @@ import COLORS from "./../styles/colors";
 const Container = styled("div")`
   display: inline-flex;
   align-items: center;
-  background: ${COLORS.activeColor};
+  border: 1px solid;
   color: white;
-  padding: 4px 12px 4px 8px;
+  padding: 16px 32px 12px 32px;
   border-radius: 100px;
   cursor: pointer;
   font-weight: 100;
@@ -16,7 +16,7 @@ const Container = styled("div")`
 `;
 
 const Play = styled("svg")`
-  width: 12px;
+  width: 20px;
   margin: 0 4px 0 0;
 `;
 

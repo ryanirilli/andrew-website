@@ -54,13 +54,14 @@ export const RatioBoxContent = styled("div")`
   ${ratioBoxProps};
 `;
 
-const pageProps = ({ background }) => css`
+const pageProps = ({ background, color }) => css`
   background: ${background || "transparent"};
+  color: ${color || "auto"};
 `;
 
 export const Page = styled("div")`
   width: 100%;
-  height: 100vh;
+  height: ${window.innerHeight}px;
   overflow: auto;
   ${pageProps};
 `;

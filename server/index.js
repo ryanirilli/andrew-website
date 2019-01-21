@@ -13,6 +13,10 @@ const BASE_PATH = "/api/v1";
 // Vimeo
 const directingPath =
   "https://api.vimeo.com/users/andrewfranks/albums/5410730/videos";
+const cinematographyPath =
+  "https://api.vimeo.com/users/andrewfranks/albums/5410736/videos";
+const editingPath =
+  "https://api.vimeo.com/users/andrewfranks/albums/5410734/videos";
 const vimeoClientId = process.env.VIMEO_CLIENT_ID;
 const vimeoClientSecret = process.env.VIMEO_CLIENT_SECRET;
 
@@ -51,10 +55,20 @@ app.get(`${BASE_PATH}/videos`, async (req, res) => {
   }
 
   const token = tokenData.data.access_token;
-  const path = `${directingPath}/?access_token=${token}`;
-  const directing = await axios.get(path);
+  const directingPathWithToken = `${directingPath}/?access_token=${token}`;
+  const directing = await axios.get(directingPathWithToken);
 
-  res.json({ directing: directing.data });
+  const cinematographyPathWithToken = `${cinematographyPath}/?access_token=${token}`;
+  const cinematography = await axios.get(cinematographyPathWithToken);
+
+  const editingPathWithToken = `${editingPath}/?access_token=${token}`;
+  const editing = await axios.get(editingPathWithToken);
+
+  res.json({
+    directing: { label: "Directing", ...directing.data },
+    editing: { label: "Editing", ...editing.data },
+    cinematography: { label: "Cinematography", ...cinematography.data }
+  });
 });
 
 app.get(`${BASE_PATH}/photos`, async (req, res) => {

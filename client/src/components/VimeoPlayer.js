@@ -1,10 +1,12 @@
 // @flow
 import * as React from "react";
 import styled from "react-emotion";
+import { css } from "emotion";
 import anime from "animejs";
 import Player from "@vimeo/player";
 
 import { FlexCenter } from "./../styles/layouts";
+import { MQ } from "../styles/style-config";
 
 const ReelContainer = styled("div")`
   top: 0;
@@ -12,14 +14,18 @@ const ReelContainer = styled("div")`
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 999;
   opacity: 0;
 `;
 
 const VidContainer = styled("div")`
-  width: 80%;
   opacity: 0;
+  ${MQ.small(css`
+    width: 100%;
+  `)} ${MQ.medium(css`
+    width: 80%;
+  `)};
 `;
 
 type Props = {

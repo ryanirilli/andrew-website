@@ -66,7 +66,6 @@ const h4 = css`
 const p = css`
   margin: 0;
   line-height: 1.5;
-  color: ${COLORS.text};
   font-family: "adelle-sans";
   font-weight: 100;
   letter-spacing: 1px;

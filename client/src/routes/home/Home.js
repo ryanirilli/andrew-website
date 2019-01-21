@@ -13,12 +13,11 @@ import { fetchVideos } from "../../actions/app.actions";
 import { BASE_SPACING_UNIT, MQ } from "../../styles/style-config";
 import COLORS from "../../styles/colors";
 import { Page, FlexCenter } from "../../styles/layouts";
-import { P, H4 } from "../../styles/typography";
+import { P, H3 } from "../../styles/typography";
 import { Pad } from "../../styles/spacing";
 
 import Reel from "./../../components/ReelButton";
 import Logo from "./../../components/AndrewFranksLogo";
-import Videos from "./../../components/Videos";
 import VideoGallery from "./../../components/VideoGallery";
 import TextReveal from "./../../components/TextReveal";
 import Bio from "./../../components/Bio";
@@ -59,10 +58,10 @@ const LogoContainer = styled("div")`
 `;
 
 const Hero = styled("div")`
-  color: ${COLORS.brandPrimary};
+  color: ${COLORS.white};
 `;
 
-const Name = styled(H4)`
+const Name = styled(H3)`
   margin: 0;
   letter-spacing: ${BASE_SPACING_UNIT * 2}px;
   padding: 0 0 ${BASE_SPACING_UNIT * 2}px 0;
@@ -90,7 +89,6 @@ class Home extends React.Component<Props, State> {
   containerEl: { current: null | HTMLDivElement } = React.createRef();
   heroEl: { current: null | HTMLDivElement } = React.createRef();
   galleryEl: { current: null | HTMLDivElement } = React.createRef();
-
   state: State = {
     isShowingReel: false
   };
@@ -108,14 +106,14 @@ class Home extends React.Component<Props, State> {
       <React.Fragment>
         {this.state.isShowingReel && <VimeoPlayer onClose={this.onCloseReel} />}
         <Wrapper innerRef={this.containerEl}>
-          <Page background={COLORS.wash}>
+          <Page background={COLORS.brand} color={COLORS.white}>
             <HeroContainer>
               <div>
                 <FlexCenter>
                   <Pad>
                     <Hero innerRef={this.heroEl}>
                       <LogoContainer>
-                        <Logo color={COLORS.activeColor} />
+                        <Logo color={COLORS.white} />
                       </LogoContainer>
                       <TextReveal>
                         <Name brandFont light uppercase>

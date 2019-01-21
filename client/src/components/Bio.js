@@ -6,6 +6,7 @@ import SocialIcons from "./SocialIcons";
 import BioImg from "./../images/andrew-bio-pic.jpg";
 
 import { BASE_SPACING_UNIT, MQ } from "../styles/style-config";
+import COLORS from "../styles/colors";
 
 import { P } from "../styles/typography";
 
@@ -25,7 +26,7 @@ const BioContentContainer = styled("div")`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  background-color: ${COLORS.wash};
 `;
 
 const BioContent = styled("div")`
@@ -41,7 +42,7 @@ const BioPic = styled("div")`
   background-size: cover;
   ${MQ.small(css`
     flex-basis: 100%;
-    height: 50vh;
+    height: 500px;
   `)} ${MQ.large(css`
     flex-basis: 60%;
     height: auto;
