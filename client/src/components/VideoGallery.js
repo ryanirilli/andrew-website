@@ -3,6 +3,7 @@ import styled from "react-emotion";
 import { css } from "emotion";
 import idx from "idx";
 import Player from "@vimeo/player";
+import { BarLoader } from "react-spinners";
 
 import { RatioBox, RatioBoxContent } from "../styles/layouts";
 import { H2, H3, H4 } from "../styles/typography";
@@ -29,6 +30,7 @@ const CloseIcon = () => {
 const Wrapper = styled("div")`
   background: #081419;
   overflow: hidden;
+  position: relative;
 `;
 
 const containerProps = props => css`
@@ -42,7 +44,7 @@ const Container = styled("div")`
   ${containerProps};
 `;
 
-const Title = styled(H3)`
+const Title = styled(H4)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -71,6 +73,7 @@ const VideoContainer = styled("div")`
   flex: 0 0 auto;
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.3);
   position: relative;
+  padding-bottom: ${BASE_SPACING_UNIT * 4}px;
   ${MQ.small(css`
     width: 80vw;
   `)} ${MQ.medium(css`
@@ -100,24 +103,36 @@ const VideoPlayer = styled("div")`
 const Close = styled("div")`
   position: absolute;
   background: white;
-  top: -0px;
-  right: 0px;
+  top: 10px;
+  left: 20px;
   z-index: 99;
   padding: 8px;
+  border-radius: 100px;
+  line-height: 0;
 `;
 
 const categoryTabProps = props => css`
   color: ${props.isActive ? COLORS.white : "#6d6d6d"};
 `;
 
-const CategoryTab = styled(H2)`
-  ${categoryTabProps} display: inline-block;
+const CategoryTab = styled(H4)`
+  ${categoryTabProps} text-transform: uppercase;
+  display: inline-block;
   cursor: pointer;
   ${MQ.small(css`
     margin-right: ${BASE_SPACING_UNIT * 4}px;
   `)} ${MQ.medium(css`
     margin-right: ${BASE_SPACING_UNIT * 8}px;
   `)};
+`;
+
+const AbsoluteCenter = styled("div")`
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
 `;
 
 type Props = {
@@ -127,19 +142,26 @@ type Props = {
 export default class VideoGallery extends React.Component<Props> {
   wrapperEl = React.createRef();
   videosContainerEl = React.createRef();
+  videosEl = React.createRef();
   playerContainerEl = React.createRef();
   containerEl = React.createRef();
   playerEl = React.createRef();
   player: null;
 
   state = {
+    isShowingSpinner: false,
     isPlayingVid: false,
     currentCategory: Object.keys(this.props.videos)[0],
     categories: new Set(Object.keys(this.props.videos))
   };
 
   render() {
-    const { categories, currentCategory, isPlayingVid } = this.state;
+    const {
+      categories,
+      currentCategory,
+      isPlayingVid,
+      isShowingSpinner
+    } = this.state;
     const cats = [];
     categories.forEach(cat =>
       cats.push(
@@ -156,6 +178,11 @@ export default class VideoGallery extends React.Component<Props> {
     );
     return (
       <Wrapper innerRef={this.wrapperEl}>
+        {isShowingSpinner && (
+          <AbsoluteCenter>
+            <BarLoader color="rgba(255, 255, 255, 0.25)" />
+          </AbsoluteCenter>
+        )}
         <Container isPlayingVid={isPlayingVid} innerRef={this.containerEl}>
           <React.Fragment>
             {this.renderCategoryTabs()}
@@ -199,7 +226,7 @@ export default class VideoGallery extends React.Component<Props> {
     const { currentCategory } = this.state;
     const { data } = videos[currentCategory];
     return (
-      <VideosContainer>
+      <VideosContainer innerRef={this.videosEl}>
         {data.map((vid, key) => this.renderVideo(vid, key))}
       </VideosContainer>
     );
@@ -237,9 +264,11 @@ export default class VideoGallery extends React.Component<Props> {
       targets: containerEl,
       opacity: [1, 0],
       translateX: [0, 100],
-      duration: 1000,
+      duration: 500,
       easing: "easeInExpo"
     }).finished;
+
+    this.setState({ isShowingSpinner: true });
 
     const playerEl = this.playerEl.current;
     const player = new Player(playerEl, {
@@ -264,13 +293,13 @@ export default class VideoGallery extends React.Component<Props> {
     await anime({
       targets: wrapperEl,
       height: [wrapperHeight, playerHeight],
-      duration: 1000,
+      duration: 500,
       easing: "easeInOutExpo"
     }).finished;
 
     player.play();
     player.on("play", () => {
-      this.setState({ isPlayingVid: true });
+      this.setState({ isPlayingVid: true, isShowingSpinner: false });
     });
   }
 
@@ -281,9 +310,11 @@ export default class VideoGallery extends React.Component<Props> {
       targets: playerContainerEl,
       opacity: [1, 0],
       translateX: [0, 100],
-      duration: 1000,
+      duration: 500,
       easing: "easeInExpo"
     }).finished;
+
+    this.setState({ isShowingSpinner: true });
 
     const wrapperEl = this.wrapperEl.current;
     const containerEl = this.containerEl.current;
@@ -292,28 +323,29 @@ export default class VideoGallery extends React.Component<Props> {
     await anime({
       targets: wrapperEl,
       height: [wrapperHeight, containerHeight],
-      duration: 1000,
+      duration: 500,
       easing: "easeInOutExpo"
     }).finished;
 
     await this.player.destroy();
     this.player = null;
 
-    this.setState({ isPlayingVid: false }, () => {
+    this.setState({ isPlayingVid: false, isShowingSpinner: false }, () => {
       anime({
         targets: containerEl,
         opacity: [0, 1],
         translateX: [100, 0],
-        duration: 1000,
-        easing: "easeInExpo"
+        duration: 500,
+        easing: "easeOutExpo"
       });
     });
   };
 
   async onCatClick(cat) {
+    this.videosEl.current.scrollLeft = 0;
     const opts = {
       targets: this.videosContainerEl.current,
-      duration: 1000,
+      duration: 500,
       easing: "easeInOutQuint"
     };
     await anime({
