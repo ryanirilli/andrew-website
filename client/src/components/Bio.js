@@ -43,7 +43,7 @@ const BioPic = styled("div")`
   ${MQ.small(css`
     flex-basis: 100%;
     height: 500px;
-  `)} ${MQ.large(css`
+  `)} ${MQ.medium(css`
     flex-basis: 60%;
     height: auto;
   `)};

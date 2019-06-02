@@ -1,6 +1,6 @@
 import Color from "color";
 
-const PRIMARY_BRAND_COLOR = "#162731";
+const PRIMARY_BRAND_COLOR = "#ec155b";
 const SECONDARY_BRAND_COLOR = "#716d66";
 const WASH = "#f7f7f7";
 const WASH_DARK = "#e8ebec;";

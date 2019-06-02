@@ -5,6 +5,7 @@ const axios = require("axios");
 const fetch = require("isomorphic-fetch");
 const Dropbox = require("dropbox").Dropbox;
 const shuffle = require("lodash.shuffle");
+const { vimeoOrder } = require("./utils");
 dotenv.config();
 
 const app = express();
@@ -65,9 +66,12 @@ app.get(`${BASE_PATH}/videos`, async (req, res) => {
   const editing = await axios.get(editingPathWithToken);
 
   res.json({
-    directing: { label: "Directing", ...directing.data },
-    editing: { label: "Editing", ...editing.data },
-    cinematography: { label: "Cinematography", ...cinematography.data }
+    directing: { label: "Directing", data: vimeoOrder(directing.data) },
+    editing: { label: "Editing", data: vimeoOrder(editing.data) },
+    cinematography: {
+      label: "Cinematography",
+      data: vimeoOrder(cinematography.data)
+    }
   });
 });
 

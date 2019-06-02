@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server",
+    "start": "node --inspect server",
     "heroku-postbuild": "cd client/ && yarn && yarn build"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "dropbox": "^4.0.9",
     "express": "^4.16.3",
     "isomorphic-fetch": "^2.2.1",
+    "lodash.orderby": "^4.6.0",
     "lodash.shuffle": "^4.2.0"
   }
 }

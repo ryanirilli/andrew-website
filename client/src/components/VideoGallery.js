@@ -4,6 +4,10 @@ import { css } from "emotion";
 import idx from "idx";
 import Player from "@vimeo/player";
 import { BarLoader } from "react-spinners";
+import WindowSize from "@reach/window-size";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { RatioBox, RatioBoxContent } from "../styles/layouts";
 import { H2, H3, H4 } from "../styles/typography";
@@ -44,29 +48,34 @@ const Container = styled("div")`
   ${containerProps};
 `;
 
+const arrowSize = "50px";
+const StyledSlider = styled(Slider)`
+  .slick-prev {
+    width: ${arrowSize};
+    height: ${arrowSize};
+    left: 20px;
+    z-index: 1;
+    :before {
+      font-size: ${arrowSize};
+    }
+  }
+  .slick-next {
+    width: ${arrowSize};
+    height: ${arrowSize};
+    right: 20px;
+    z-index: 1;
+    :before {
+      font-size: ${arrowSize};
+    }
+  }
+`;
+
 const Title = styled(H4)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   word-break: break-all;
   word-wrap: break-word;
-`;
-
-const VideosContainer = styled("div")`
-  overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-  display: flex;
-  flex-wrap: nowrap;
-  ::-webkit-scrollbar {
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 4px;
-  }
 `;
 
 const VideoContainer = styled("div")`
@@ -104,11 +113,17 @@ const Close = styled("div")`
   position: absolute;
   background: white;
   top: 10px;
-  left: 20px;
+  right: 20px;
   z-index: 99;
   padding: 8px;
   border-radius: 100px;
   line-height: 0;
+  cursor: pointer;
+  transition: transform 250ms easeOut;
+  transform: scale(1);
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 
 const categoryTabProps = props => css`
@@ -221,14 +236,36 @@ export default class VideoGallery extends React.Component<Props> {
     return <Pad>{cats}</Pad>;
   }
 
+  getSettings(size) {
+    let numSlides;
+    if (size.width <= 500) {
+      numSlides = 1;
+    } else if (size.width <= 1000) {
+      numSlides = 2;
+    } else {
+      numSlides = 3;
+    }
+    return {
+      dots: true,
+      infinite: true,
+      speed: 1000,
+      slidesToShow: numSlides,
+      slidesToScroll: numSlides
+    };
+  }
+
   renderVideos() {
     const { videos } = this.props;
     const { currentCategory } = this.state;
     const { data } = videos[currentCategory];
     return (
-      <VideosContainer innerRef={this.videosEl}>
-        {data.map((vid, key) => this.renderVideo(vid, key))}
-      </VideosContainer>
+      <WindowSize>
+        {size => (
+          <StyledSlider innerRef={this.videosEl} {...this.getSettings(size)}>
+            {data.map((vid, key) => this.renderVideo(vid, key))}
+          </StyledSlider>
+        )}
+      </WindowSize>
     );
   }
 
