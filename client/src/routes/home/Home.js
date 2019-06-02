@@ -65,6 +65,7 @@ const Name = styled(H3)`
   margin: 0;
   letter-spacing: ${BASE_SPACING_UNIT * 2}px;
   padding: 0 0 ${BASE_SPACING_UNIT * 2}px 0;
+  text-indent: 8px;
 `;
 
 const AboutText = styled(P)`
@@ -229,4 +230,7 @@ const mapDispatchToProps = {
   fetchVideos
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Home));
