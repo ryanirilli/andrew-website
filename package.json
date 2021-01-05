@@ -8,7 +8,7 @@
     "heroku-postbuild": "cd client/ && yarn && yarn build"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "dotenv": "^6.0.0",
     "dropbox": "^4.0.9",
     "express": "^4.16.3",
