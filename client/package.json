@@ -9,7 +9,7 @@
     "color": "^3.0.0",
     "emotion": "^9.2.6",
     "idx": "^2.5.2",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "react": "16.5.1",
     "react-dom": "16.5.1",
     "react-emotion": "^9.2.6",
